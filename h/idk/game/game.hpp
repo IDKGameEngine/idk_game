@@ -2,20 +2,26 @@
 
 #include "idk/core/engine.hpp"
 #include "idk/core/game.hpp"
+#include "idk/core/service.hpp"
+#include "idk/engine/controller.hpp"
+
+#include "idk/idk_gfxapi.hpp"
 
 
-namespace idk::game
+namespace idk
 {
-    void main(idk::core::IEngine*);
+    class Game: public idk::core::Service
+    {
+    private:
+        idk::GfxApi mGfx;
+        idk::TestCharacterController mInput;
+        glm::vec3 dmove;
+        glm::vec3 dlook;
 
-    class Game;
+    public:
+        Game(const idk::GfxApi&);
+        virtual void onUpdate(idk::IEngine*) final;
+        virtual void onShutdown(idk::IEngine*) final;
+
+    };
 }
-
-
-class idk::game::Game: public idk::core::IGame
-{
-public:
-    Game();
-    virtual void update() final;
-
-};
