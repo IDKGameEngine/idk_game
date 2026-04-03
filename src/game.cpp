@@ -10,15 +10,12 @@ idk::Game::Game(const idk::GfxApi &gfxapi)
     mInput.moveSpeed = 0.00001f;
 }
 
-void idk::Game::onUpdate(idk::IEngine *engine)
+void idk::Game::onUpdate(idk::IEngine*)
 {
-    (void)engine;
-
     mInput.update();
     mInput.getMotion(dmove, dlook);
 
     mGfx.bgColorAdd(glm::vec4(dmove.x, dmove.z, 0.0f, 0.0f));
-
 }
 
 
