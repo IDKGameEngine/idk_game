@@ -14,6 +14,7 @@ namespace idk
     {
     private:
         idk::GfxApi mGfx;
+        uint64_t tprev;
         idk::TestCharacterController mInput;
         glm::vec3 dmove;
         glm::vec3 dlook;
