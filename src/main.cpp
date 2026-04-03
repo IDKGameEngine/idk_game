@@ -12,16 +12,15 @@ int main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    idk::Engine engine(2U);
+    auto *ren  = new idk::gfx::RenderEngine({"A Game Probably", 1280, 720});
+    auto *game = new idk::Game(idk::GfxApi(ren));
+
+    idk::Engine engine(ren, {game});
 
     idk::MMapFile file("assets/noise/voronoi.jpg");
     printf("[MMapFile] base=0x%p, size=%lu\n", file.base, file.size);
 
-    auto *ren  = new idk::gfx::RenderEngine({"A Game Probably", 1280, 720});
-    auto *game = new idk::Game(idk::GfxApi(ren));
-
-    engine.addService(game);
-    engine.start(ren);
+    engine.start();
 
     return 0;
 }
