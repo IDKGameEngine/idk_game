@@ -4,20 +4,21 @@
 idk::Game::Game(const idk::GfxApi &gfxapi)
 :   mGfx(gfxapi),
     dmove(0.0f),
-    dlook(0.0f),
-    tprev(SDL_GetTicks())
+    dlook(0.0f)
 {
     mGfx.bgColorSet(glm::vec4(0.5f));
-    mInput.moveSpeed = 0.00001f;
 }
+
 
 void idk::Game::onUpdate(idk::IEngine*)
 {
-    uint64_t tcurr, tdiff;
+    if (!mTimer.expired())
+    {
+        return;
+    }
 
-    tcurr = SDL_GetTicks();
-    tdiff = (tcurr - tprev);
-    tprev = tcurr;
+    float dt = 1000.0f / float(mTimer.rateHz);
+    mInput.moveSpeed = 0.001f * dt;
 
     mInput.update();
     mInput.getMotion(dmove, dlook);
