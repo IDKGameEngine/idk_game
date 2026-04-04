@@ -6,7 +6,7 @@
 #include "idk/core/periodic_timer.hpp"
 #include "idk/engine/controller.hpp"
 
-#include "idk/idk_gfxapi.hpp"
+#include "idk/gfxapi.hpp"
 
 
 namespace idk

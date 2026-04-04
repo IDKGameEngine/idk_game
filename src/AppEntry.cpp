@@ -1,17 +1,15 @@
-#include "idk/version.h"
 #include "idk/AppEntry.hpp"
-#include "idk/AppRuntime.hpp"
+#include "idk/engine.hpp"
 
 #include "idk/core/file.hpp"
-#include "idk/engine/engine.hpp"
 #include "idk/gfx/renderer.hpp"
 #include "idk/game/game.hpp"
-#include "idk/idk_gfxapi.hpp"
+#include "idk/gfxapi.hpp"
 
 
-int idk::AppEntry::AppEntry(int argc, char **argv)
+int idk::AppEntry(int argc, char **argv)
 {
-    VLOG_INFO("[AppEntry::AppEntry]");
+    VLOG_INFO("[AppRuntime::Entry]");
 
     (void)argc;
     (void)argv;

@@ -11,8 +11,7 @@ target_compile_features(
 )
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/h"
-    "${IDK_ROOT_DIR}/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include"
 )
 target_link_libraries(
     ${PROJECT_NAME} PRIVATE idk_engine idk_gfx
