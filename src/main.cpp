@@ -17,8 +17,8 @@ int main(int argc, char **argv)
 
     idk::Engine engine(ren, {game});
 
-    idk::MMapFile file("assets/noise/voronoi.jpg");
-    printf("[MMapFile] base=0x%p, size=%lu\n", file.base, file.size);
+    // idk::MMapFile file("assets/noise/voronoi.jpg");
+    // printf("[MMapFile] base=0x%p, size=%lu\n", file.base, file.size);
 
     engine.start();
 
