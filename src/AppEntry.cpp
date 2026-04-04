@@ -16,7 +16,7 @@ int idk::AppEntry::AppEntry(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    auto *ren  = new idk::gfx::RenderEngine({"A Game Probably", 1280, 720});
+    auto *ren  = new idk::gfx::RenderEngine({"A Game Probably", 1024, 1024});
     auto *game = new idk::Game(idk::GfxApi(ren));
 
     idk::Engine engine(ren, {game});
