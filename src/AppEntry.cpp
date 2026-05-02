@@ -20,7 +20,7 @@ int idk::AppEntry(int argc, char **argv)
     idk::Engine engine(ren, {game});
     engine.start();
 
-    // idk::MMapFile file("assets/noise/voronoi.jpg");
+    // idk::MMapFile file("asset/noise/voronoi.jpg");
     // printf("[MMapFile] base=0x%p, size=%lu\n", file.base, file.size);
 
     return 0;

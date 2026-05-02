@@ -1,4 +1,5 @@
 #include "idk/game/game.hpp"
+#include "idk/core/log.hpp"
 
 
 idk::Game::Game(const idk::GfxApi &gfxapi)
@@ -6,12 +7,15 @@ idk::Game::Game(const idk::GfxApi &gfxapi)
     dmove(0.0f),
     dlook(0.0f)
 {
-    mGfx.bgColorSet(glm::vec4(0.5f));
+    static gfx::GfxResponse res;
+    mGfx.bgColorSet(&res, glm::vec4(0.5f));
 }
 
 
 void idk::Game::onUpdate(idk::IEngine*)
 {
+    static gfx::GfxResponse res;
+
     if (!mTimer.expired())
     {
         return;
@@ -23,7 +27,7 @@ void idk::Game::onUpdate(idk::IEngine*)
     mInput.update();
     mInput.getMotion(dmove, dlook);
 
-    mGfx.bgColorAdd(glm::vec4(dmove.x, dmove.z, 0.0f, 0.0f));
+    mGfx.bgColorAdd(&res, glm::vec4(dmove.x, dmove.z, 0.0f, 0.0f));
 }
 
 

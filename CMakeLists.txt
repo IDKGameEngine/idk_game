@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 4.2)
 
 project(idk_game CXX)
 add_compile_options(-Werror -Wall -Wextra)
