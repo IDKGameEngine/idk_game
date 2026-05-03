@@ -15,7 +15,6 @@ namespace idk
     {
     private:
         idk::GfxApi mGfx;
-        idk::PeriodicTimer<60> mTimer;
         idk::TestCharacterController mInput;
         glm::vec3 dmove;
         glm::vec3 dlook;
