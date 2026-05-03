@@ -18,8 +18,8 @@ target_link_libraries(
 )
 target_sources(
     ${PROJECT_NAME} PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/AppEntry.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/game.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/OsAdapter.cpp"
 )
 
 

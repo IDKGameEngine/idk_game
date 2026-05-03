@@ -1,4 +1,4 @@
-#include "idk/AppEntry.hpp"
+#include "idk/OsAdapter.hpp"
 #include "idk/engine.hpp"
 
 #include "idk/core/file.hpp"
@@ -7,9 +7,9 @@
 #include "idk/gfxapi.hpp"
 
 
-int idk::AppEntry(int argc, char **argv)
+int idk::OsAdapter::AppMain(int argc, char **argv)
 {
-    VLOG_INFO("[AppRuntime::Entry]");
+    VLOG_INFO("[idk::OsAdapter::AppMain]");
 
     (void)argc;
     (void)argv;
@@ -18,7 +18,6 @@ int idk::AppEntry(int argc, char **argv)
     auto *game = new idk::Game(idk::GfxApi(ren));
 
     idk::Engine engine(ren, {game});
-    engine.start();
 
     // idk::MMapFile file("asset/noise/voronoi.jpg");
     // printf("[MMapFile] base=0x%p, size=%lu\n", file.base, file.size);

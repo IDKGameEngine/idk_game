@@ -1,7 +1,6 @@
 #pragma once
 
 #include "idk/core/engine.hpp"
-#include "idk/core/game.hpp"
 #include "idk/core/service.hpp"
 #include "idk/core/periodic_timer.hpp"
 #include "idk/engine/controller.hpp"
@@ -21,8 +20,9 @@ namespace idk
 
     public:
         Game(const idk::GfxApi&);
-        virtual void onUpdate(idk::IEngine*) final;
-        virtual void onShutdown(idk::IEngine*) final;
+        virtual void _startup(idk::IEngine*) final;
+        virtual void _update(idk::IEngine*) final;
+        virtual void _shutdown(idk::IEngine*) final;
 
     };
 }
