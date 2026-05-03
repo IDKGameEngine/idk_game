@@ -5,12 +5,12 @@
 #include "idk/core/periodic_timer.hpp"
 #include "idk/engine/controller.hpp"
 
-#include "idk/gfxapi.hpp"
+#include "idk/gfx_api.hpp"
 
 
 namespace idk
 {
-    class Game: public idk::core::Service
+    class GameService: public idk::core::Service
     {
     private:
         idk::GfxApi mGfx;
@@ -19,7 +19,7 @@ namespace idk
         glm::vec3 dlook;
 
     public:
-        Game(const idk::GfxApi&);
+        GameService(const idk::GfxApi&);
         virtual void _startup(idk::IEngine*) final;
         virtual void _update(idk::IEngine*) final;
         virtual void _shutdown(idk::IEngine*) final;

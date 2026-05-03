@@ -1,8 +1,8 @@
-#include "idk/game/game.hpp"
+#include "idk/game_service.hpp"
 #include "idk/core/log.hpp"
 
 
-idk::Game::Game(const idk::GfxApi &gfxapi)
+idk::GameService::GameService(const idk::GfxApi &gfxapi)
 :   Service(idk::PeriodicTimer(1000.0 / 60.0)),
     mGfx(gfxapi),
     dmove(0.0f),
@@ -15,13 +15,13 @@ idk::Game::Game(const idk::GfxApi &gfxapi)
 }
 
 
-void idk::Game::_startup(idk::IEngine*)
+void idk::GameService::_startup(idk::IEngine*)
 {
-    VLOG_INFO("idk::Game::_startup");
+    VLOG_INFO("[idk::GameService::_startup]");
 }
 
 
-void idk::Game::_update(idk::IEngine*)
+void idk::GameService::_update(idk::IEngine*)
 {
     mGfx.FlushCommandQueue();
 
@@ -45,8 +45,8 @@ void idk::Game::_update(idk::IEngine*)
 }
 
 
-void idk::Game::_shutdown(idk::IEngine*)
+void idk::GameService::_shutdown(idk::IEngine*)
 {
-    VLOG_INFO("idk::Game::_shutdown");
+    VLOG_INFO("[idk::GameService::_shutdown]");
 }
 

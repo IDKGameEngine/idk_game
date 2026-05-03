@@ -1,10 +1,11 @@
 #include "idk/OsAdapter.hpp"
+#include "idk/core/file.hpp"
+
 #include "idk/engine.hpp"
 
-#include "idk/core/file.hpp"
-#include "idk/gfx/renderer.hpp"
-#include "idk/game/game.hpp"
-#include "idk/gfxapi.hpp"
+#include "idk/io_service.hpp"
+#include "idk/gfx_service.hpp"
+#include "idk/game_service.hpp"
 
 
 int idk::OsAdapter::AppMain(int argc, char **argv)
@@ -14,10 +15,12 @@ int idk::OsAdapter::AppMain(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    auto *ren  = new idk::gfx::RenderEngine({"A Game Probably", 1024, 1024});
-    auto *game = new idk::Game(idk::GfxApi(ren));
 
-    idk::Engine engine(ren, {game});
+    auto *gfx_srv  = new idk::GfxService({"A Game Probably", 1024, 1024});
+    auto *io_srv   = new idk::IoService();
+    auto *game_srv = new idk::GameService(idk::GfxApi(gfx_srv));
+
+    idk::Engine engine({gfx_srv, io_srv}, {game_srv});
 
     // idk::MMapFile file("asset/noise/voronoi.jpg");
     // printf("[MMapFile] base=0x%p, size=%lu\n", file.base, file.size);
