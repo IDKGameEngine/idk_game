@@ -1,4 +1,6 @@
 #include "idk/OsAdapter.hpp"
+
+#include "idk/core/cfgparser.hpp"
 #include "idk/core/file.hpp"
 
 #include "idk/engine.hpp"
@@ -15,6 +17,9 @@ int idk::OsAdapter::AppMain(int argc, char **argv)
     (void)argc;
     (void)argv;
 
+    idk::CfgParser cfg("asset/gfx.cfg");
+    // cfg.print();
+    woop_treenode(cfg.root_);
 
     auto *gfx_srv  = new idk::GfxService({"A Game Probably", 1024, 1024});
     auto *io_srv   = new idk::IoService();
