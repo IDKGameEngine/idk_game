@@ -5,6 +5,7 @@
 #include "idk/core/periodic_timer.hpp"
 
 #include "idk/gfx_api.hpp"
+#include "idk/gfx/controller.hpp"
 
 
 namespace idk
@@ -13,9 +14,7 @@ namespace idk
     {
     private:
         idk::GfxApi mGfx;
-        // idk::TestCharacterController mInput;
-        glm::vec3 dmove;
-        glm::vec3 dlook;
+        idk::TestCharacterController mCtl;
 
     public:
         GameService(const idk::GfxApi&);

@@ -5,13 +5,9 @@
 
 idk::GameService::GameService(const idk::GfxApi &gfxapi)
 :   Service(idk::PeriodicTimer(1000.0 / 60.0)),
-    mGfx(gfxapi),
-    dmove(0.0f),
-    dlook(0.0f)
+    mGfx(gfxapi)
 {
-    // static gfx::BgColorSetResponse res;
-    // gfx::BgColorSetRequest req(glm::vec4(0.5f));
-    // mGfx.BgColorSet(req, &res);
+
 }
 
 
@@ -23,6 +19,25 @@ void idk::GameService::_startup(idk::IEngine*)
 
 void idk::GameService::_update(idk::IEngine*)
 {
+    static glm::vec3 dMove;
+    static float     dPitch;
+    static float     dYaw;
+
+    mCtl.update();
+    mCtl.getMotion(dMove, dPitch, dYaw);
+    {
+        auto getcam = mGfx.GetCameraLock();
+        auto &cam = getcam();
+        auto &T   = cam.getTransform();
+
+        T.translate(-dMove.x * T.getRight());
+        T.translate(+dMove.y * T.getUp());
+        T.translate(+dMove.z * T.getFront());
+
+        T.pitch(dPitch); T.yaw(dYaw);
+    }
+
+
     mGfx.FlushCommandQueue();
 
     // static gfx::BgColorAddResponse res;
