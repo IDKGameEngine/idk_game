@@ -23,19 +23,6 @@ void idk::GameService::_startup(idk::IEngine*)
 
 void idk::GameService::_update(idk::IEngine*)
 {
-    static idk::gfx::Camera cam(90.0f, 1.0f, 0.01f, 100.0f);
-    static idk::gfx::SetCameraResponse camRes;
-    static idk::TestCharacterController ctl;
-
-
-    ctl.update();
-
-    glm::vec3 move, look;
-    ctl.getMotion(move, look);
-    cam.getTransform().translate(move);
-    cam.getTransform().rotate(glm::length(look), glm::normalize(look));
-    mGfx.SetCamera(cam, &camRes);
-
     mGfx.FlushCommandQueue();
 
     // static gfx::BgColorAddResponse res;

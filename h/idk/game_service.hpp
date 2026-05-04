@@ -3,7 +3,6 @@
 #include "idk/core/engine.hpp"
 #include "idk/core/service.hpp"
 #include "idk/core/periodic_timer.hpp"
-#include "idk/engine/controller.hpp"
 
 #include "idk/gfx_api.hpp"
 
@@ -14,7 +13,7 @@ namespace idk
     {
     private:
         idk::GfxApi mGfx;
-        idk::TestCharacterController mInput;
+        // idk::TestCharacterController mInput;
         glm::vec3 dmove;
         glm::vec3 dlook;
 
