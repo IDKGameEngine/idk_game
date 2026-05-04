@@ -16,7 +16,7 @@ int idk::OsAdapter::AppMain(int argc, char **argv)
     (void)argv;
 
 
-    auto *gfx_srv  = new idk::GfxService({"A Game Probably", 1920, 1080});
+    auto *gfx_srv  = new idk::GfxService({"A Game Probably", 1024, 1024});
     auto *io_srv   = new idk::IoService();
     auto *game_srv = new idk::GameService(idk::GfxApi(gfx_srv));
 
