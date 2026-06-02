@@ -1,13 +1,13 @@
 #include "idk/game_service.hpp"
+#include "idk/core/camera.hpp"
 #include "idk/core/log.hpp"
-#include "idk/gfx/camera.hpp"
 
 
 idk::GameService::GameService(const idk::GfxApi &gfxapi)
 :   Service(idk::PeriodicTimer(1000.0 / 60.0)),
     mGfx(gfxapi)
 {
-
+    mCtl.moveSpeed = 10.0f;
 }
 
 
@@ -25,16 +25,18 @@ void idk::GameService::_update(idk::IEngine*)
 
     mCtl.update();
     mCtl.getMotion(dMove, dPitch, dYaw);
+
     {
         auto getcam = mGfx.GetCameraLock();
-        auto &cam = getcam();
-        auto &T   = cam.getTransform();
+        auto &T = getcam().getTransform();
+    
+        T.Translate(dMove.x * T.GetRight());
+        T.Translate(dMove.y * T.GetUp());
+        T.Translate(dMove.z * T.GetForward());
+        // T.RotateLocal();
 
-        T.translate(-dMove.x * T.getRight());
-        T.translate(+dMove.y * T.getUp());
-        T.translate(+dMove.z * T.getFront());
-
-        T.pitch(dPitch); T.yaw(dYaw);
+        T.PitchLocal(dPitch);
+        T.YawWorld(dYaw);
     }
 
 
