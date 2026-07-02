@@ -1,35 +1,47 @@
 #include "idk/game_service.hpp"
 #include "idk/core/camera.hpp"
+#include "idk/core/cfgparser.hpp"
 #include "idk/core/log.hpp"
 
 
-idk::GameService::GameService(const idk::GfxApi &gfxapi)
-:   Service(idk::PeriodicTimer(1000.0 / 60.0)),
-    mGfx(gfxapi)
+idk::GameService::GameService(idk::GfxService *gfxsrv)
+:   Service(idk_typeid<GameService>()),
+    mCfg("asset/GameService.cfg"),
+    mGfx(gfxsrv)
 {
+    uint64_t updateRateHz = mCfg["UPDATE_RATE"].getValueU64();
+    timer_.setRateHz(updateRateHz);
+    VLOG_INFO("[GameService::GameService] updateRateHz={}", updateRateHz);
+
     mCtl.moveSpeed = 10.0f;
 }
 
 
-void idk::GameService::_startup(idk::IEngine*)
+void idk::GameService::startup(idk::IEngine*)
 {
-    VLOG_INFO("[idk::GameService::_startup]");
+    VLOG_INFO("[GameService::startup]");
 }
 
 
-void idk::GameService::_update(idk::IEngine*)
+void idk::GameService::update(idk::IEngine *E)
 {
-    static glm::vec3 dMove;
-    static float     dPitch;
-    static float     dYaw;
+    (void)E;
 
-    mCtl.update();
-    mCtl.getMotion(dMove, dPitch, dYaw);
-
+    if (timer_.expired())
     {
-        auto getcam = mGfx.GetCameraLock();
-        auto &T = getcam().getTransform();
-    
+        timer_.reset();
+
+        static glm::vec3 dMove;
+        static float     dPitch;
+        static float     dYaw;
+
+        mCtl.update();
+        mCtl.getMotion(dMove, dPitch, dYaw);
+        mCtl.clearMotion();
+
+        auto &cam = mGfx->getRenderer().getCamera();
+        auto &T = cam.getTransform();
+
         T.Translate(dMove.x * T.GetRight());
         T.Translate(dMove.y * T.GetUp());
         T.Translate(dMove.z * T.GetForward());
@@ -38,9 +50,6 @@ void idk::GameService::_update(idk::IEngine*)
         T.PitchLocal(dPitch);
         T.YawWorld(dYaw);
     }
-
-
-    mGfx.FlushCommandQueue();
 
     // static gfx::BgColorAddResponse res;
     // gfx::BgColorAddRequest req(glm::vec4(dmove.x, dmove.z, 0.0f, 0.0f));
@@ -62,8 +71,8 @@ void idk::GameService::_update(idk::IEngine*)
 }
 
 
-void idk::GameService::_shutdown(idk::IEngine*)
+void idk::GameService::shutdown(idk::IEngine*)
 {
-    VLOG_INFO("[idk::GameService::_shutdown]");
+    VLOG_INFO("[GameService::shutdown]");
 }
 

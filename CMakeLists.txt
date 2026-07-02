@@ -19,7 +19,7 @@ target_link_libraries(
 target_sources(
     ${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src/game_service.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OsAdapter.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
 )
 
 
@@ -30,3 +30,10 @@ target_sources(
 # add_executable(udp_server src/udp_server.cpp)
 # target_compile_features(udp_server PUBLIC cxx_std_23)
 # target_include_directories(udp_server PUBLIC "${IDK_ROOT_DIR}/include")
+
+add_custom_target(
+    idk_game_assets
+    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/asset ${IDK_OUTPUT_DIR}/asset
+)
+add_dependencies(${PROJECT_NAME} idk_game_assets)
