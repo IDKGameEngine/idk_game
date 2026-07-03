@@ -1,14 +1,9 @@
 #include "idk/UdpService.hpp"
+#include "idk/engine/UdpTxer.hpp"
 #include <iostream>
 
-enum UserCmd: uint8_t
-{
-    None,
-    SendPacket,
-    SendMultiPacket,
-    Quit
-};
-
+#include <SDL3/SDL.h>
+#include <SDL3_net/SDL_net.h>
 
 int main(int argc, char **argv)
 {
@@ -24,77 +19,32 @@ int main(int argc, char **argv)
         VLOG_FATAL("{}", SDL_GetError());
     }
 
-    uint16_t SERVER_PORT = 4001;
-    NET_DatagramSocket *udpSocket = NET_CreateDatagramSocket(NULL, 0, 0);
-    NET_Address *serverAddr = NET_ResolveHostname("127.0.0.1");
-
-    if (!serverAddr)
-    {
-        SDL_Log("Failed to resolve host: %s", SDL_GetError());
-        return -1;
-    }
 
     bool running = true;
+    idk::UdpTxer txer(4001);
+
     while (running)
     {
-        UserCmd usercmd = UserCmd::None;
-        std::string strcmd = "None";
+        static char usercmd[256];
+        static char usermsg[256];
 
-        std::cout << "> ";
-        std::cin >> strcmd;
+        memset(usercmd, 0, sizeof(usercmd));
+        strcpy(usercmd, "quit");
 
-        if (strcmd == "SendPacket")
+        printf("> ");
+        scanf("%s", usercmd);
+
+        if (strcmp(usercmd, "quit") == 0)
         {
-            usercmd = UserCmd::SendPacket;
-        }
-        if (strcmd == "SendMultiPacket")
-        {
-            usercmd = UserCmd::SendMultiPacket;
-        }
-        if (strcmd == "Quit")
-        {
-            usercmd = UserCmd::Quit;
+            break;
         }
 
-
-        int repCount = 0;
-        const char *payload = "Packet";
-        int payloadSize = (int)strlen(payload) + 1;
-
-        switch (usercmd)
+        if (strcmp(usercmd, "send") == 0)
         {
-            case UserCmd::SendPacket:
-                repCount = 1;
-                break;
-            case UserCmd::SendMultiPacket:
-                repCount = 10;
-                break;
-            case UserCmd::Quit:
-                running = false;
-                break;
-            default:
-                std::cout << "Unknown command\n";
-                break;
+            memset(usermsg, 0, sizeof(usermsg));
+            scanf("%[^\n]", usermsg);
+            txer.sendmsg(usermsg, strlen(usermsg) + 1);
         }
-
-        for (int i=0; i<repCount; i++)
-        {
-            if (!NET_SendDatagram(udpSocket, serverAddr, SERVER_PORT, payload, payloadSize))
-            {
-                SDL_Log("Failed to send datagram: %s", SDL_GetError());
-            }
-        }
-
-        // SDL_Event e;
-        // while (SDL_PollEvent(&e))
-        // {
-        //     if (e.type == SDL_EVENT_QUIT)
-        //     {
-        //         running = false;
-        //     }
-        // }
-
-        // SDL_Delay(100);
     }
 
     NET_Quit();

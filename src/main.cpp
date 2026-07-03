@@ -7,9 +7,9 @@
 
 int main(int argc, char **argv)
 {
-    (void)argc; (void)argv;
+    (void)argc;
+    (void)argv;
 
-    VLOG_INFO("[main]");
     std::srand(clock());
 
     if (!idk::platform::AppInit())
@@ -21,8 +21,7 @@ int main(int argc, char **argv)
     static idk::GameService gameSrv(&gfxSrv);
     static idk::IoService ioSrv;
     static idk::UdpService udpSrv;
-
-    idk::Engine engine({&gameSrv, &gfxSrv, &ioSrv, &udpSrv});
+    static idk::Engine engine({&gameSrv, &gfxSrv, &ioSrv, &udpSrv});
 
     while (engine.running())
     {
