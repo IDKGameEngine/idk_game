@@ -23,6 +23,18 @@ target_sources(
 )
 
 
+add_executable(mkpkg "${CMAKE_CURRENT_SOURCE_DIR}/src/mkpkg.cpp")
+target_compile_features(mkpkg PUBLIC cxx_std_23)
+target_include_directories(mkpkg PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
+target_link_libraries(mkpkg PRIVATE idk_core)
+
+add_executable(unpkg "${CMAKE_CURRENT_SOURCE_DIR}/src/unpkg.cpp")
+target_compile_features(unpkg PUBLIC cxx_std_23)
+target_include_directories(unpkg PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
+target_link_libraries(unpkg PRIVATE idk_core)
+
+
+
 # add_executable(udp_client src/udp_client.cpp)
 # target_compile_features(udp_client PUBLIC cxx_std_23)
 # target_include_directories(udp_client PUBLIC "${IDK_ROOT_DIR}/include")
@@ -34,6 +46,6 @@ target_sources(
 add_custom_target(
     idk_game_data
     COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/data ${IDK_OUTPUT_DIR}/data
+        ${CMAKE_CURRENT_SOURCE_DIR}/${IDK_ASSETS_DIRNAME} ${IDK_OUTPUT_DIR}/${IDK_ASSETS_DIRNAME}
 )
 add_dependencies(${PROJECT_NAME} idk_game_data)
