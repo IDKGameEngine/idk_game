@@ -3,7 +3,7 @@
 #include "idk/core/engine.hpp"
 #include "idk/core/periodic_timer.hpp"
 
-#include "idk/gfx_service.hpp"
+#include "idk/GfxService.hpp"
 #include "idk/gfx/controller.hpp"
 
 
@@ -12,7 +12,6 @@ namespace idk
     class GameService: public idk::core::Service
     {
     private:
-        idk::CfgParser mCfg;
         idk::GfxService *mGfx;
         idk::TestCharacterController mCtl;
         idk::PeriodicTimer timer_;

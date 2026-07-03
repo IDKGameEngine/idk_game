@@ -18,7 +18,7 @@ target_link_libraries(
 )
 target_sources(
     ${PROJECT_NAME} PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/game_service.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/GameService.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
 )
 
@@ -32,8 +32,8 @@ target_sources(
 # target_include_directories(udp_server PUBLIC "${IDK_ROOT_DIR}/include")
 
 add_custom_target(
-    idk_game_assets
+    idk_game_data
     COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/asset ${IDK_OUTPUT_DIR}/asset
+        ${CMAKE_CURRENT_SOURCE_DIR}/data ${IDK_OUTPUT_DIR}/data
 )
-add_dependencies(${PROJECT_NAME} idk_game_assets)
+add_dependencies(${PROJECT_NAME} idk_game_data)

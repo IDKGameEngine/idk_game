@@ -3,10 +3,13 @@
 #include "idk/core/cfgparser.hpp"
 #include "idk/core/file.hpp"
 #include "idk/core/threadpool.hpp"
+#include "idk/core/InplaceList.hpp"
+
 #include "idk/engine.hpp"
-#include "idk/game_service.hpp"
-#include "idk/gfx_service.hpp"
-#include "idk/io_service.hpp"
+#include "idk/engine/world.hpp"
+#include "idk/GameService.hpp"
+#include "idk/GfxService.hpp"
+#include "idk/IoService.hpp"
 
 alignas(max_align_t) static uint8_t gfxSrvBuf[sizeof(idk::GfxService)];
 alignas(max_align_t) static uint8_t ioSrvBuf[sizeof(idk::IoService)];
@@ -30,13 +33,17 @@ alignas(max_align_t) static uint8_t gameSrvBuf[sizeof(idk::GameService)];
 //     }
 // }
 
-
-int idk::platform::AppEntry(int argc, char **argv)
+int main(int argc, char **argv)
 {
-    VLOG_INFO("[idk::platform::AppEntry]");
+    (void)argc; (void)argv;
 
-    (void)argc;
-    (void)argv;
+    VLOG_INFO("[main]");
+    srand(clock());
+
+    if (!idk::platform::AppInit())
+    {
+        return 1;
+    }
 
     // static idk::core::ThreadPool threadpool;
     // static uint8_t buf[2048];
