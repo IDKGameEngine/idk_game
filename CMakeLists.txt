@@ -33,6 +33,10 @@ target_compile_features(unpkg PUBLIC cxx_std_23)
 target_include_directories(unpkg PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
 target_link_libraries(unpkg PRIVATE idk_core)
 
+add_executable(udpsend "${CMAKE_CURRENT_SOURCE_DIR}/src/udpsend.cpp")
+target_compile_features(udpsend PUBLIC cxx_std_23)
+target_include_directories(udpsend PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
+target_link_libraries(udpsend PRIVATE idk_core idk_engine SDL3::SDL3-shared SDL3_net::SDL3_net)
 
 
 # add_executable(udp_client src/udp_client.cpp)

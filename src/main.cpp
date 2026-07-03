@@ -3,13 +3,14 @@
 #include "idk/GameService.hpp"
 #include "idk/GfxService.hpp"
 #include "idk/IoService.hpp"
+#include "idk/UdpService.hpp"
 
 int main(int argc, char **argv)
 {
     (void)argc; (void)argv;
 
     VLOG_INFO("[main]");
-    srand(clock());
+    std::srand(clock());
 
     if (!idk::platform::AppInit())
     {
@@ -17,10 +18,11 @@ int main(int argc, char **argv)
     }
 
     static idk::GfxService gfxSrv;
-    static idk::IoService ioSrv;
     static idk::GameService gameSrv(&gfxSrv);
+    static idk::IoService ioSrv;
+    static idk::UdpService udpSrv;
 
-    idk::Engine engine({&ioSrv, &gameSrv, &gfxSrv});
+    idk::Engine engine({&gameSrv, &gfxSrv, &ioSrv, &udpSrv});
 
     while (engine.running())
     {
