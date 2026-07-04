@@ -18,7 +18,6 @@ namespace idk
 
     public:
         GameService(idk::GfxService*);
-        virtual void startup(idk::IEngine*) final;
         virtual void update(idk::IEngine*) final;
         virtual void shutdown(idk::IEngine*) final;
 

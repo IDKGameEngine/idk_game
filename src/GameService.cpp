@@ -17,12 +17,6 @@ idk::GameService::GameService(idk::GfxService *gfxsrv)
 }
 
 
-void idk::GameService::startup(idk::IEngine*)
-{
-    VLOG_INFO("[GameService::startup]");
-}
-
-
 void idk::GameService::update(idk::IEngine *E)
 {
     (void)E;
