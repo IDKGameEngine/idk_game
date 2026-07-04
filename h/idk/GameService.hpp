@@ -1,6 +1,7 @@
 #pragma once
 
-#include "idk/core/engine.hpp"
+#include "idk/core/Engine.hpp"
+#include "idk/core/Service.hpp"
 #include "idk/core/periodic_timer.hpp"
 
 #include "idk/GfxService.hpp"

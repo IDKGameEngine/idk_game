@@ -7,7 +7,7 @@
 idk::GameService::GameService()
 :   IDK_SERVICE_CTOR(GameService)
 {
-    uint64_t tickRateHz = mCfg["TICKRATE_HZ"].getValueU64();
+    uint64_t tickRateHz = mCfg["TICKRATE_HZ"].toU64();
     timer_.setRateHz(tickRateHz);
     VLOG_INFO("[GameService::GameService] tickRateHz={}", tickRateHz);
 
