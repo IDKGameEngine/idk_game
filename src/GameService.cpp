@@ -4,9 +4,8 @@
 #include "idk_engine/InputState.hpp"
 
 
-idk::GameService::GameService(idk::GfxService *gfxsrv)
-:   Service("GameService", idk_typeid<GameService>()),
-    mGfx(gfxsrv)
+idk::GameService::GameService()
+:   IDK_SERVICE_CTOR(GameService)
 {
     uint64_t tickRateHz = mCfg["TICKRATE_HZ"].getValueU64();
     timer_.setRateHz(tickRateHz);
@@ -19,9 +18,11 @@ idk::GameService::GameService(idk::GfxService *gfxsrv)
 
 void idk::GameService::update(idk::IEngine *E)
 {
-    (void)E;
-
-    mGfx->getRenderer().setLerpAlpha(timer_.getExpiryAlpha());
+    auto *gfx = E->getService<idk::GfxService>();
+    if (!gfx) { return; }
+    
+    auto &ren = gfx->getRenderer();
+    ren.setLerpAlpha(timer_.getExpiryAlpha());
 
     if (timer_.expired())
     {
@@ -36,7 +37,7 @@ void idk::GameService::update(idk::IEngine *E)
         mCtl.clearMotion();
 
         float dt = timer_.getPeriodSec<float>();
-        auto &cam = mGfx->getRenderer().getCamera();
+        auto &cam = ren.getCamera();
         auto &T = cam.getTransform();
 
         T.Translate(dt * dMove.x * T.GetRight());
@@ -47,8 +48,8 @@ void idk::GameService::update(idk::IEngine *E)
         T.PitchLocal(dt * dPitch);
         T.YawWorld(dt * dYaw);
 
-        mGfx->getRenderer().setLerpAlpha(0);
-        mGfx->getRenderer().swapCamera();
+        ren.setLerpAlpha(0);
+        ren.swapCamera();
     }
 }
 

@@ -1,6 +1,5 @@
-#include "idk_engine/engine.hpp"
-#include "idk_engine/world.hpp"
-#include "idk_engine/IoService.hpp"
+#include "idk_engine/Engine.hpp"
+#include "idk_engine/World.hpp"
 #include "idk/GameService.hpp"
 #include "idk/GfxService.hpp"
 
@@ -17,9 +16,8 @@ int main(int argc, char **argv)
     }
 
     static idk::GfxService gfxSrv;
-    static idk::GameService gameSrv(&gfxSrv);
-    static idk::IoService ioSrv;
-    static idk::Engine engine({&gameSrv, &gfxSrv, &ioSrv});
+    static idk::GameService gameSrv;
+    static idk::Engine engine({&gameSrv, &gfxSrv});
 
     while (engine.running())
     {

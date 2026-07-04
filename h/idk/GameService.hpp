@@ -12,12 +12,11 @@ namespace idk
     class GameService: public idk::core::Service
     {
     private:
-        idk::GfxService *mGfx;
         idk::TestCharacterController mCtl;
         idk::PeriodicTimer timer_;
 
     public:
-        GameService(idk::GfxService*);
+        GameService();
         virtual void update(idk::IEngine*) final;
         virtual void shutdown(idk::IEngine*) final;
 
