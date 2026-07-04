@@ -1,7 +1,7 @@
-#include "idk/UdpClientService.hpp"
+#include "idk_engine/UdpClientService.hpp"
 #include "idk/core/platform.hpp"
-#include "idk/engine/UdpTxer.hpp"
-#include "idk/config/udp/TimeSyncAddress.hpp"
+#include "idk_engine/UdpTxer.hpp"
+#include "idk_engine/config/udp/TimeSyncAddress.hpp"
 #include <iostream>
 
 #include <SDL3/SDL.h>
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     bool running = true;
     static idk::config::udp::TimeSyncData timeSyncData;
     idk::UdpTxer2<idk::config::udp::ServerTimeSyncAddress> timeSyncTxer;
-    idk::UdpRxer2<idk::config::udp::ClientTimeSyncAddress> timeSyncRxer;
+    // idk::UdpRxer2<idk::config::udp::ClientTimeSyncAddress> timeSyncRxer;
 
     while (running)
     {
@@ -52,10 +52,10 @@ int main(int argc, char **argv)
         timeSyncData.clientSendTime = idk::platform::GetSysTimeMs();
         if (timeSyncTxer.sendmsg(timeSyncData))
         {
-            while (!timeSyncRxer.recvmsg(timeSyncData))
-            {
+            // while (!timeSyncRxer.recvmsg(timeSyncData))
+            // {
 
-            }
+            // }
 
             uint64_t clientSendTime = timeSyncData.clientSendTime;
             uint64_t serverSendTime = timeSyncData.serverSendTime;

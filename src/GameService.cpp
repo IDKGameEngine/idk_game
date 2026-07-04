@@ -1,7 +1,7 @@
 #include "idk/GameService.hpp"
 #include "idk/core/camera.hpp"
 #include "idk/core/log.hpp"
-#include "idk/engine/InputState.hpp"
+#include "idk_engine/InputState.hpp"
 
 
 idk::GameService::GameService(idk::GfxService *gfxsrv)

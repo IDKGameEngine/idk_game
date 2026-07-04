@@ -1,9 +1,8 @@
-#include "idk/engine.hpp"
-#include "idk/engine/world.hpp"
+#include "idk_engine/engine.hpp"
+#include "idk_engine/world.hpp"
+#include "idk_engine/IoService.hpp"
 #include "idk/GameService.hpp"
 #include "idk/GfxService.hpp"
-#include "idk/IoService.hpp"
-#include "idk/UdpClientService.hpp"
 
 int main(int argc, char **argv)
 {
@@ -20,8 +19,7 @@ int main(int argc, char **argv)
     static idk::GfxService gfxSrv;
     static idk::GameService gameSrv(&gfxSrv);
     static idk::IoService ioSrv;
-    static idk::UdpClientService udpClientSrv;
-    static idk::Engine engine({&gameSrv, &gfxSrv, &ioSrv, &udpClientSrv});
+    static idk::Engine engine({&gameSrv, &gfxSrv, &ioSrv});
 
     while (engine.running())
     {
