@@ -1,5 +1,7 @@
 #include "idk/UdpService.hpp"
+#include "idk/core/platform.hpp"
 #include "idk/engine/UdpTxer.hpp"
+#include "idk/config/udp/TimeSyncAddress.hpp"
 #include <iostream>
 
 #include <SDL3/SDL.h>
@@ -21,30 +23,47 @@ int main(int argc, char **argv)
 
 
     bool running = true;
-    idk::UdpTxer txer(4001);
+    static idk::config::udp::TimeSyncData timeSyncData;
+    idk::UdpTxer2<idk::config::udp::ServerTimeSyncAddress> timeSyncTxer;
+    idk::UdpRxer2<idk::config::udp::ClientTimeSyncAddress> timeSyncRxer;
 
     while (running)
     {
-        static char usercmd[256];
-        static char usermsg[256];
+        // static char usercmd[256];
+        // static char usermsg[256];
 
-        memset(usercmd, 0, sizeof(usercmd));
-        strcpy(usercmd, "quit");
+        // memset(usercmd, 0, sizeof(usercmd));
+        // strcpy(usercmd, "quit");
 
-        printf("> ");
-        scanf("%s", usercmd);
+        // printf("> ");
+        // (void)scanf("%s", usercmd);
 
-        if (strcmp(usercmd, "quit") == 0)
+        // if (strcmp(usercmd, "quit") == 0)
+        // {
+        //     break;
+        // }
+
+        // if (strcmp(usercmd, "send") == 0)
+        // {
+        //     memset(usermsg, 0, sizeof(usermsg));
+        //     (void)scanf("%[^\n]", usermsg);
+        //     txer.sendmsg(usermsg, strlen(usermsg) + 1);
+        // }
+        timeSyncData.clientSendTime = idk::platform::GetSysTimeMs();
+        if (timeSyncTxer.sendmsg(timeSyncData))
         {
-            break;
+            while (!timeSyncRxer.recvmsg(timeSyncData))
+            {
+
+            }
+
+            uint64_t clientSendTime = timeSyncData.clientSendTime;
+            uint64_t serverSendTime = timeSyncData.serverSendTime;
+            VLOG_INFO("clientSendTime, serverSendTime: {}, {}", clientSendTime, serverSendTime);
         }
 
-        if (strcmp(usercmd, "send") == 0)
-        {
-            memset(usermsg, 0, sizeof(usermsg));
-            scanf("%[^\n]", usermsg);
-            txer.sendmsg(usermsg, strlen(usermsg) + 1);
-        }
+
+        SDL_Delay(200);
     }
 
     NET_Quit();
