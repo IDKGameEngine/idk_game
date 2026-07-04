@@ -1,16 +1,12 @@
 #include "idk/GameService.hpp"
 #include "idk/core/camera.hpp"
 #include "idk/core/log.hpp"
-#include "idk_engine/InputState.hpp"
 
 
 idk::GameService::GameService()
-:   IDK_SERVICE_CTOR(GameService)
+:   IDK_SERVICE_CTOR(GameService),
+    mTimer(mCfg["TICKRATE_HZ"].toU64())
 {
-    uint64_t tickRateHz = mCfg["TICKRATE_HZ"].toU64();
-    timer_.setRateHz(tickRateHz);
-    VLOG_INFO("[GameService::GameService] tickRateHz={}", tickRateHz);
-
     mCtl.moveSpeed = 400.0f;
     mCtl.lookSpeed = 10.0f;
 }
@@ -22,11 +18,11 @@ void idk::GameService::update(idk::IEngine *E)
     if (!gfx) { return; }
     
     auto &ren = gfx->getRenderer();
-    ren.setLerpAlpha(timer_.getExpiryAlpha());
+    ren.setLerpAlpha(mTimer.getExpiryAlpha());
 
-    if (timer_.expired())
+    if (mTimer.expired())
     {
-        timer_.reset();
+        mTimer.reset();
 
         static glm::vec3 dMove;
         static float     dPitch;
@@ -36,7 +32,7 @@ void idk::GameService::update(idk::IEngine *E)
         mCtl.getMotion(dMove, dPitch, dYaw);
         mCtl.clearMotion();
 
-        float dt = timer_.getPeriodSec<float>();
+        float dt = mTimer.getPeriodSec<float>();
         auto &cam = ren.getCamera();
         auto &T = cam.getTransform();
 

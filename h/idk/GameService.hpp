@@ -14,7 +14,7 @@ namespace idk
     {
     private:
         idk::TestCharacterController mCtl;
-        idk::PeriodicTimer timer_;
+        idk::PeriodicTimer mTimer;;
 
     public:
         GameService();

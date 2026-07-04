@@ -1,5 +1,5 @@
 // #include "idk_engine/UdpClientService.hpp"
-// #include "idk/core/platform.hpp"
+// #include "idk/core/Platform.hpp"
 // #include "idk_engine/UdpTxer.hpp"
 // #include "idk_engine/config/udp/TimeSyncAddress.hpp"
 // #include <iostream>
@@ -49,7 +49,7 @@
 //         //     (void)scanf("%[^\n]", usermsg);
 //         //     txer.sendmsg(usermsg, strlen(usermsg) + 1);
 //         // }
-//         timeSyncData.clientSendTime = idk::platform::GetSysTimeMs();
+//         timeSyncData.clientSendTime = idk::Platform::getSysTimeMs();
 //         if (timeSyncTxer.sendmsg(timeSyncData))
 //         {
 //             // while (!timeSyncRxer.recvmsg(timeSyncData))
