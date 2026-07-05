@@ -5,8 +5,8 @@
 
 namespace idk::config::memory
 {
-    static constexpr size_t IDK_ENGINE_ALLOCATOR_SIZE = 1 * idk::MEGA;
-    using AllocatorType = idk::core::BumpAllocator<IDK_ENGINE_ALLOCATOR_SIZE>;
+    static constexpr size_t IDK_GAME_ALLOCATOR_SIZE = 256 * idk::KILO;
+    using AllocatorType = idk::core::BumpAllocator<IDK_GAME_ALLOCATOR_SIZE>;
 
     static inline AllocatorType &getAllocator()
     {
