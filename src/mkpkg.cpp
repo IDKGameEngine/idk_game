@@ -1,6 +1,6 @@
-#include "idk/core/file.hpp"
-#include "idk/core/metric.hpp"
-#include "idk/core/IdkPkg.hpp"
+#include "idk_core/file.hpp"
+#include "idk_core/metric.hpp"
+#include "idk_core/IdkPkg.hpp"
 
 int main(int argc, char **argv)
 {

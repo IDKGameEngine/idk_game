@@ -1,6 +1,6 @@
 #include "idk/GameService.hpp"
-#include "idk/core/camera.hpp"
-#include "idk/core/log.hpp"
+#include "idk_core/camera.hpp"
+#include "idk_core/log.hpp"
 
 
 idk::GameService::GameService()
