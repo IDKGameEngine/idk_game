@@ -1,4 +1,5 @@
-#include "idk/GameService.hpp"
+#include "GameService.hpp"
+#include "idk_gfx/GfxService.hpp"
 #include "idk_core/camera.hpp"
 #include "idk_core/log.hpp"
 

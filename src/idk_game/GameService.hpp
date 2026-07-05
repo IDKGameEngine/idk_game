@@ -3,9 +3,7 @@
 #include "idk_core/Engine.hpp"
 #include "idk_core/Service.hpp"
 #include "idk_core/Timer.hpp"
-
-#include "idk/GfxService.hpp"
-#include "idk/gfx/controller.hpp"
+#include "idk_gfx/controller.hpp"
 
 
 namespace idk
