@@ -2,7 +2,7 @@
 
 #include "idk/core/Engine.hpp"
 #include "idk/core/Service.hpp"
-#include "idk/core/periodic_timer.hpp"
+#include "idk/core/Timer.hpp"
 
 #include "idk/GfxService.hpp"
 #include "idk/gfx/controller.hpp"
