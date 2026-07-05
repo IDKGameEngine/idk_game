@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
-    static idk::engine::PlatformService platSrv;
+    static idk::engine::PlatformService platSrv(true);
     static idk::engine::NetService netSrv;
     static idk::Engine engine({&platSrv, &netSrv});
 
