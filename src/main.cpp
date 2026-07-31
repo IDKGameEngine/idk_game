@@ -1,5 +1,4 @@
 #include "idk_engine/Engine.hpp"
-#include "idk_engine/PlatformService.hpp"
 #include "idk/GameService.hpp"
 #include "idk/GfxService.hpp"
 
@@ -10,10 +9,9 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
-    static idk::engine::PlatformService platSrv(false);
-    static idk::GfxService gfxSrv(&platSrv);
+    static idk::GfxService gfxSrv;
     static idk::GameService gameSrv;
-    static idk::Engine engine({&platSrv, &gameSrv, &gfxSrv});
+    static idk::Engine engine({&gameSrv, &gfxSrv});
 
     while (engine.running())
     {

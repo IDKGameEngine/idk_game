@@ -5,7 +5,7 @@
 #include "libidk/Timer.hpp"
 
 #include "idk/GfxService.hpp"
-#include "idk/gfx/controller.hpp"
+#include "idk/gfx/Controller.hpp"
 
 
 namespace idk
