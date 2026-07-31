@@ -3,10 +3,6 @@
 #include "idk/GameService.hpp"
 #include "idk/GfxService.hpp"
 
-// #include "libidk/message/LocalPort.hpp"
-// static idk::message::LocalPortRegion<idk::gfx::MeshDescriptor> TEST_PORT_REGION;
-// using TestPortAddress = idk::message::LocalPortAddress<idk::gfx::MeshDescriptor, &TEST_PORT_REGION>;
-
 int main(int argc, char **argv)
 {
     (void)argc;
