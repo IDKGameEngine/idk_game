@@ -1,6 +1,6 @@
-#include "idk/core/file.hpp"
-#include "idk/core/metric.hpp"
-#include "idk/core/IdkPkg.hpp"
+#include "libidk/file.hpp"
+#include "libidk/metric.hpp"
+#include "libidk/IdkPkg.hpp"
 
 #include <filesystem>
 namespace fs = std::filesystem;

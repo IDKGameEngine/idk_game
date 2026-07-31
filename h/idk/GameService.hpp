@@ -1,8 +1,8 @@
 #pragma once
 
-#include "idk/core/Engine.hpp"
-#include "idk/core/Service.hpp"
-#include "idk/core/Timer.hpp"
+#include "libidk/Engine.hpp"
+#include "libidk/Service.hpp"
+#include "libidk/Timer.hpp"
 
 #include "idk/GfxService.hpp"
 #include "idk/gfx/controller.hpp"

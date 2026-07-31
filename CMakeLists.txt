@@ -25,22 +25,17 @@ target_sources(
 add_executable(mkpkg "${CMAKE_CURRENT_SOURCE_DIR}/src/mkpkg.cpp")
 target_compile_features(mkpkg PUBLIC cxx_std_23)
 target_include_directories(mkpkg PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
-target_link_libraries(mkpkg PRIVATE idk_core)
+target_link_libraries(mkpkg PRIVATE libidk)
 
 add_executable(unpkg "${CMAKE_CURRENT_SOURCE_DIR}/src/unpkg.cpp")
 target_compile_features(unpkg PUBLIC cxx_std_23)
 target_include_directories(unpkg PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
-target_link_libraries(unpkg PRIVATE idk_core)
-
-add_executable(server "${CMAKE_CURRENT_SOURCE_DIR}/src/server.cpp")
-target_compile_features(server PUBLIC cxx_std_23)
-target_include_directories(server PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
-target_link_libraries(server PRIVATE idk_core idk_engine SDL3::SDL3-shared SDL3_net::SDL3_net)
+target_link_libraries(unpkg PRIVATE libidk)
 
 # add_executable(udpsend "${CMAKE_CURRENT_SOURCE_DIR}/src/udpsend.cpp")
 # target_compile_features(udpsend PUBLIC cxx_std_23)
 # target_include_directories(udpsend PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
-# target_link_libraries(udpsend PRIVATE idk_core idk_engine SDL3::SDL3-shared SDL3_net::SDL3_net)
+# target_link_libraries(udpsend PRIVATE libidk idk_engine SDL3::SDL3-shared SDL3_net::SDL3_net)
 
 add_custom_target(
     idk_game_data
