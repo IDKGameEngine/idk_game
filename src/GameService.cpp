@@ -1,14 +1,22 @@
 #include "idk/GameService.hpp"
+#include "idk/GfxService.hpp"
 #include "libidk/camera.hpp"
 #include "libidk/log.hpp"
 
 
 idk::GameService::GameService()
 :   IDK_SERVICE_CTOR(GameService),
-    mTimer(mCfg["TICKRATE_HZ"].toU64())
+    mTimer(mCfg["TICKRATE_HZ"].toU64()),
+    mObjectManager(mCfg["MAX_OBJECTS"].toI32())
 {
     mCtl.moveSpeed = 400.0f;
     mCtl.lookSpeed = 10.0f;
+
+    mObjectManager.createObject();
+    mObjectManager.createObject();
+    mObjectManager.createObject();
+    mObjectManager.createObject();
+    mObjectManager.createObject();
 }
 
 

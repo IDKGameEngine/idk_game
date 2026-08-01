@@ -37,6 +37,16 @@ target_link_libraries(unpkg PRIVATE libidk)
 # target_include_directories(udpsend PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
 # target_link_libraries(udpsend PRIVATE libidk idk_engine SDL3::SDL3-shared SDL3_net::SDL3_net)
 
+add_executable(recv_stat "${CMAKE_CURRENT_SOURCE_DIR}/src/recv_stat.cpp")
+target_compile_features(recv_stat PUBLIC cxx_std_23)
+target_include_directories(recv_stat PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
+target_link_libraries(recv_stat PRIVATE libidk idk_engine SDL3::SDL3-shared SDL3_net::SDL3_net)
+
+add_executable(send_ctrl "${CMAKE_CURRENT_SOURCE_DIR}/src/send_ctrl.cpp")
+target_compile_features(send_ctrl PUBLIC cxx_std_23)
+target_include_directories(send_ctrl PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include")
+target_link_libraries(send_ctrl PRIVATE libidk idk_engine SDL3::SDL3-shared SDL3_net::SDL3_net)
+
 add_custom_target(
     idk_game_data
     COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
