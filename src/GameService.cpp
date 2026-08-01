@@ -18,7 +18,7 @@ void idk::GameService::update(idk::IEngine *E)
     if (!gfx) { return; }
     
     auto &ren = gfx->getRenderer();
-    ren.setLerpAlpha(mTimer.getExpiryAlpha());
+    // ren.setLerpAlpha(mTimer.getExpiryAlpha());
 
     if (mTimer.expired())
     {
@@ -44,7 +44,7 @@ void idk::GameService::update(idk::IEngine *E)
         T.PitchLocal(dt * dPitch);
         T.YawWorld(dt * dYaw);
 
-        ren.setLerpAlpha(0);
+        // ren.setLerpAlpha(0);
         ren.swapCamera();
     }
 }

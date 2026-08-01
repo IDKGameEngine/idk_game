@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 
     static idk::GfxService gfxSrv;
     static idk::GameService gameSrv;
-    static idk::Engine engine({&gameSrv, &gfxSrv});
+    static idk::Engine engine({&gfxSrv, &gameSrv});
 
     while (engine.running())
     {
