@@ -65,9 +65,12 @@ int main(int argc, char **argv)
     idk::platform::Platform plat;
     idk::platform::Window &win = plat.getWindow();
 
-    idk::EngineControlData ctrl;
-    idk::RemoteTxer txer(argv[1], atol(argv[2]));
-    idk::PeriodicTimer timer(4);
+    idk::EngineControlData ctrl, ctrlBuf;
+    idk::EngineStatusData  stat;
+    idk::PeriodicTimer ctrlTimer(4);
+    idk::PeriodicTimer statTimer(4);
+    idk::RemoteRxer statRx(5002);
+    idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
     // idk::SharedTxer txer("IDKGameEngineIPC-EngineControl", sizeof(idk::EngineControlData));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
@@ -101,12 +104,6 @@ int main(int argc, char **argv)
     {
         plat.update();
 
-        if (timer.expired())
-        {
-            timer.reset();
-            // txer.sendMsg(ctrl);
-        }
-
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
@@ -114,15 +111,39 @@ int main(int argc, char **argv)
 
         if (show_demo_window) { ImGui::ShowDemoWindow(&show_demo_window); }
 
-        ImGui::Begin("Woop");
-        ImGui::InputInt("X", &ctrl.x);
-        ImGui::InputInt("Y", &ctrl.y);
-        ImGui::InputInt("Z", &ctrl.z);
-        if (ImGui::Button("Send"))
         {
-            txer.sendMsg(ctrl);
+            ImGui::Begin("Woop");
+            ImGui::InputInt("X", &ctrlBuf.x);
+            ImGui::InputInt("Y", &ctrlBuf.y);
+            ImGui::InputInt("Z", &ctrlBuf.z);
+            if (ImGui::Button("Send"))
+            {
+                ctrl = ctrlBuf;
+            }
+            ImGui::End();
         }
-        ImGui::End();
+
+        {
+            ImGui::Begin("EngineStatusData");
+            ImGui::LabelText("EngineStatus", "x=%d y=%d z=%d", stat.x, stat.y, stat.z);
+            ImGui::End();
+        }
+
+        if (ctrlTimer.expired())
+        {
+            ctrlTimer.reset();
+            ctrlTx.sendMsg(ctrl);
+        }
+
+        if (statTimer.expired())
+        {
+            statTimer.reset();
+            while (statRx.recvMsg(stat))
+            {
+                // 
+            }
+        }
+
 
         ImGui::Render();
         // glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
