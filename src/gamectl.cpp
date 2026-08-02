@@ -21,9 +21,9 @@ int main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    if (argc != 4)
+    if (argc != 3)
     {
-        VLOG_FATAL("Usage: gamectl hostname ctrlPort statPort");
+        VLOG_FATAL("Usage: gamectl hostname port");
     }
 
     idk::platform::Platform plat;
@@ -31,10 +31,8 @@ int main(int argc, char **argv)
 
     idk::EngineCtrlData ctrl, ctrlBuf;
     idk::EngineStatData stat;
-    idk::PeriodicTimer ctrlTimer(16);
-    idk::PeriodicTimer statTimer(16);
-    // idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
-    // idk::RemoteRxer statRx(atol(argv[3]));
+    idk::PeriodicTimer ctrlTimer(4);
+    idk::PeriodicTimer statTimer(4);
     idk::RemoteRxTxer port(argv[1], atol(argv[2]));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
