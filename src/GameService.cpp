@@ -7,16 +7,16 @@
 idk::GameService::GameService()
 :   IDK_SERVICE_CTOR(GameService),
     mTimer(mCfg["TICKRATE_HZ"].toU64()),
-    mObjectManager(mCfg["MAX_OBJECTS"].toI32())
+    mEntityManager(mCfg["MAX_ENTITIES"].toI32())
 {
     mCtl.moveSpeed = 400.0f;
     mCtl.lookSpeed = 10.0f;
 
-    mObjectManager.createObject();
-    mObjectManager.createObject();
-    mObjectManager.createObject();
-    mObjectManager.createObject();
-    mObjectManager.createObject();
+    mEntityManager.createEntity();
+    mEntityManager.createEntity();
+    mEntityManager.createEntity();
+    mEntityManager.createEntity();
+    mEntityManager.createEntity();
 }
 
 

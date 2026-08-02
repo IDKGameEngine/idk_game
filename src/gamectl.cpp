@@ -33,8 +33,9 @@ int main(int argc, char **argv)
     idk::EngineStatData stat;
     idk::PeriodicTimer ctrlTimer(4);
     idk::PeriodicTimer statTimer(4);
-    idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
-    idk::RemoteRxer statRx(atol(argv[3]));
+    // idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
+    // idk::RemoteRxer statRx(atol(argv[3]));
+    idk::RemoteRxTxer port(argv[1], atol(argv[2]));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
 
@@ -108,13 +109,13 @@ int main(int argc, char **argv)
         if (ctrlTimer.expired())
         {
             ctrlTimer.reset();
-            ctrlTx.sendMsg(ctrl);
+            port.sendMsg(ctrl);
         }
 
         if (statTimer.expired())
         {
             statTimer.reset();
-            while (statRx.recvMsg(stat))
+            while (port.recvMsg(stat))
             {
                 // VLOG_INFO("WOOP");
             }

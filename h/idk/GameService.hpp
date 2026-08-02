@@ -7,7 +7,7 @@
 #include "idk/GfxService.hpp"
 #include "idk/gfx/Controller.hpp"
 
-#include "libidk/object/ObjectManager.hpp"
+#include "libidk/object/EntityManager.hpp"
 
 
 namespace idk
@@ -17,7 +17,7 @@ namespace idk
     private:
         idk::TestCharacterController mCtl;
         idk::PeriodicTimer mTimer;
-        idk::object::ObjectManager mObjectManager;
+        idk::EntityManager mEntityManager;
 
     public:
         GameService();
