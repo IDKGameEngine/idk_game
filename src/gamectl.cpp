@@ -87,16 +87,13 @@ int main(int argc, char **argv)
                 ctrl = ctrlBuf;
             }
             ImGui::SameLine();
-            if (ImGui::Button("Kill"))
-            {
-                ctrl.kill = true;
-            }
+            ImGui::Checkbox("Kill", &ctrlBuf.kill);
             ImGui::End();
         }
 
         {
             ImGui::Begin("EngineStatData");
-            ImGui::Text("StaticAllocatorMemoryUsage: %f", stat.allocatorMemoryUsage);
+            ImGui::Text("M: %0.2f%%", stat.allocatorMemoryUsage);
             ImGui::Text("x: %d", stat.x);
             ImGui::Text("y: %d", stat.y);
             ImGui::Text("z: %d", stat.z);
