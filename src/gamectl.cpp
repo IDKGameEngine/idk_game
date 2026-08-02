@@ -2,46 +2,12 @@
 #include "idk_engine/Engine.hpp"
 
 #include "libidk/message/RemoteRxTx.hpp"
-#include "libidk/message/SharedRxTx.hpp"
+#include "libidk/gpu/gl_bindings.hpp"
 
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_opengl3.h"
 #include <SDL3/SDL.h>
-
-// static void SendCtrlEventFunc(idk::platform::Platform &plat, void *event, void *arg)
-// {
-//     (void)plat;
-//     (void)arg;
-//     auto &e = *((SDL_Event*)event);
-//     bool dirty = false;
-
-//     if (e.type == SDL_EVENT_KEY_UP)
-//     {
-//         if (e.key.scancode == SDL_SCANCODE_X)
-//         {
-//             VLOG_INFO("SEND X"); ctrl.x = (ctrl.x+1) % 2;
-//             dirty = true;
-//         }
-
-//         if (e.key.scancode == SDL_SCANCODE_Y)
-//         {
-//             VLOG_INFO("SEND Y"); ctrl.y = (ctrl.y+1) % 2;
-//             dirty = true;
-//         }
-
-//         if (e.key.scancode == SDL_SCANCODE_Z)
-//         {
-//             VLOG_INFO("SEND Z"); ctrl.z = (ctrl.z+1) % 2;
-//             dirty = true;
-//         }
-//     }
-
-//     if (dirty)
-//     {
-//         txer.sendMsg(ctrl);
-//     }
-// }
 
 static void ImGuiSDL3EventFunc(idk::platform::Platform &plat, void *event, void *arg)
 {
@@ -50,28 +16,25 @@ static void ImGuiSDL3EventFunc(idk::platform::Platform &plat, void *event, void 
     ImGui_ImplSDL3_ProcessEvent((SDL_Event*)event);
 }
 
-
-
 int main(int argc, char **argv)
 {
     (void)argc;
     (void)argv;
 
-    if (argc != 3)
+    if (argc != 4)
     {
-        VLOG_FATAL("Usage: gamectl hostname port");
+        VLOG_FATAL("Usage: gamectl hostname ctrlPort statPort");
     }
 
     idk::platform::Platform plat;
     idk::platform::Window &win = plat.getWindow();
 
     idk::EngineCtrlData ctrl, ctrlBuf;
-    idk::EngineStatData  stat;
+    idk::EngineStatData stat;
     idk::PeriodicTimer ctrlTimer(4);
     idk::PeriodicTimer statTimer(4);
     idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
-    idk::RemoteRxer statRx(atol(argv[2]));
-    // idk::SharedTxer txer("IDKGameEngineIPC-EngineControl", sizeof(idk::EngineCtrlData));
+    idk::RemoteRxer statRx(atol(argv[3]));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
 
@@ -88,9 +51,10 @@ int main(int argc, char **argv)
     //ImGui::StyleColorsLight();
 
     // Setup scaling
-    // ImGuiStyle& style = ImGui::GetStyle();
-    // style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
-    // style.FontScaleDpi = main_scale;        // Set initial font scale. (in docking branch: using io.ConfigDpiScaleFonts=true automatically overrides this for every window depending on the current monitor)
+    ImGuiStyle& style = ImGui::GetStyle();
+    float main_scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
+    style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
+    style.FontScaleDpi = main_scale;        // Set initial font scale. (in docking branch: using io.ConfigDpiScaleFonts=true automatically overrides this for every window depending on the current monitor)
 
     // Setup Platform/Renderer backends
     ImGui_ImplSDL3_InitForOpenGL(win.getWinCtx(), win.getGpuCtx());
@@ -98,7 +62,7 @@ int main(int argc, char **argv)
 
     bool show_demo_window = true;
     // bool show_another_window = false;
-    // ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     while (plat.running())
     {
@@ -109,10 +73,13 @@ int main(int argc, char **argv)
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
 
-        if (show_demo_window) { ImGui::ShowDemoWindow(&show_demo_window); }
+        if (show_demo_window)
+        {
+            ImGui::ShowDemoWindow(&show_demo_window);
+        }
 
         {
-            ImGui::Begin("Woop");
+            ImGui::Begin("EngineCtrlData");
             ImGui::InputInt("X", &ctrlBuf.x);
             ImGui::InputInt("Y", &ctrlBuf.y);
             ImGui::InputInt("Z", &ctrlBuf.z);
@@ -120,12 +87,21 @@ int main(int argc, char **argv)
             {
                 ctrl = ctrlBuf;
             }
+            ImGui::SameLine();
+            if (ImGui::Button("Kill"))
+            {
+                ctrl.kill = true;
+            }
             ImGui::End();
         }
 
         {
             ImGui::Begin("EngineStatData");
-            ImGui::LabelText("EngineStatus", "x=%d y=%d z=%d", stat.x, stat.y, stat.z);
+            ImGui::Text("StaticAllocatorMemoryUsage: %f", stat.allocatorMemoryUsage);
+            ImGui::Text("x: %d", stat.x);
+            ImGui::Text("y: %d", stat.y);
+            ImGui::Text("z: %d", stat.z);
+
             ImGui::End();
         }
 
@@ -140,15 +116,14 @@ int main(int argc, char **argv)
             statTimer.reset();
             while (statRx.recvMsg(stat))
             {
-                VLOG_INFO("WOOP");
+                // VLOG_INFO("WOOP");
             }
         }
 
-
         ImGui::Render();
-        // glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-        // glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        // glClear(GL_COLOR_BUFFER_BIT);
+        idk::gl::Viewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+        idk::gl::ClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+        idk::gl::Clear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(win.getWinCtx());
     }
