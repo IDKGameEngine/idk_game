@@ -9,11 +9,11 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
-    idk::EngineStatusData prevData;
-    idk::EngineStatusData statusData;
+    idk::EngineStatData prevData;
+    idk::EngineStatData statusData;
     idk::PeriodicTimer statusTimer(8);
     idk::RemoteRxer statRx(5002);
-    // idk::SharedRxer statRx("IDKGameEngineIPC-EngineStatus", sizeof(idk::EngineStatusData));
+    // idk::SharedRxer statRx("IDKGameEngineIPC-EngineStatus", sizeof(idk::EngineStatData));
 
     int count = 0;
     while (count < 10)

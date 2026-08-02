@@ -65,13 +65,13 @@ int main(int argc, char **argv)
     idk::platform::Platform plat;
     idk::platform::Window &win = plat.getWindow();
 
-    idk::EngineControlData ctrl, ctrlBuf;
-    idk::EngineStatusData  stat;
+    idk::EngineCtrlData ctrl, ctrlBuf;
+    idk::EngineStatData  stat;
     idk::PeriodicTimer ctrlTimer(4);
     idk::PeriodicTimer statTimer(4);
-    idk::RemoteRxer statRx(5002);
     idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
-    // idk::SharedTxer txer("IDKGameEngineIPC-EngineControl", sizeof(idk::EngineControlData));
+    idk::RemoteRxer statRx(5002);
+    // idk::SharedTxer txer("IDKGameEngineIPC-EngineControl", sizeof(idk::EngineCtrlData));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
 
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
         }
 
         {
-            ImGui::Begin("EngineStatusData");
+            ImGui::Begin("EngineStatData");
             ImGui::LabelText("EngineStatus", "x=%d y=%d z=%d", stat.x, stat.y, stat.z);
             ImGui::End();
         }
@@ -140,7 +140,7 @@ int main(int argc, char **argv)
             statTimer.reset();
             while (statRx.recvMsg(stat))
             {
-                // 
+                VLOG_INFO("WOOP");
             }
         }
 
