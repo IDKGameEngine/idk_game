@@ -57,14 +57,17 @@ int main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    std::srand(clock());
+    if (argc != 3)
+    {
+        VLOG_FATAL("Usage: engine_ctrl hostname port");
+    }
 
     idk::platform::Platform plat;
     idk::platform::Window &win = plat.getWindow();
 
     idk::EngineControlData ctrl;
-    idk::RemoteTxer txer("127.0.0.1", 5001);
-    idk::PeriodicTimer timer(1);
+    idk::RemoteTxer txer(argv[1], atol(argv[2]));
+    idk::PeriodicTimer timer(4);
     // idk::SharedTxer txer("IDKGameEngineIPC-EngineControl", sizeof(idk::EngineControlData));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
