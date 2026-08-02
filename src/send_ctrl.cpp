@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 
     idk::EngineControlData data;
     // idk::PortTxer<idk::RemoteTxer, idk::EngineControlData> port("127.0.0.1", 5001);
-    idk::PortTxer<idk::LocalTxer, idk::EngineControlData> port("EngineCtrlPort");
+    idk::RemoteTxer txer("127.0.0.1", 5001);
 
     bool running = true;
     bool dirty = false;
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
         if (dirty)
         {
             dirty = false;
-            port.sendData(data);
+            txer.sendMsg(data);
         }
     }
 
