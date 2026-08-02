@@ -118,18 +118,17 @@ int main(int argc, char **argv)
             while (idk::MessageRecvInfo *msg = port.recvMsg())
             {
                 auto &h = msg->header;
-                if (msg->isType("STAT"))
+                if (!msg->isType("STAT"))
                 {
-                    if (h.payloadSize == sizeof(idk::EngineStatData))
-                    {
-                        idk_memcpy(&stat, msg->payload, h.payloadSize);
-                    }
-                    else
-                    {
-                        VLOG_WARN("h.payloadSize != sizeof(idk::EngineStatData)");
-                    }
+                    VLOG_WARN("[Engine::handleCtrlMessage] Recieved \"{}\"", msg->header.payloadType.ascii);
+                    continue;
                 }
-                // VLOG_INFO("WOOP");
+                if (h.payloadSize != sizeof(idk::EngineStatData))
+                {
+                    VLOG_WARN("h.payloadSize != sizeof(idk::EngineStatData)");
+                    continue;
+                }
+                idk_memcpy(&stat, msg->payload, h.payloadSize);
             }
         }
 
