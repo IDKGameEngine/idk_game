@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     static idk::platform::Platform plat;
     static idk::GfxService gfxSrv(plat);
     static idk::GameService gameSrv;
-    static idk::Engine engine({&gfxSrv, &gameSrv});
+    static idk::Engine engine(plat, {&gfxSrv, &gameSrv});
 
     while (engine.running())
     {
