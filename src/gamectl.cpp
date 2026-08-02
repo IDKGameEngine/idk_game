@@ -70,7 +70,7 @@ int main(int argc, char **argv)
     idk::PeriodicTimer ctrlTimer(4);
     idk::PeriodicTimer statTimer(4);
     idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
-    idk::RemoteRxer statRx(5002);
+    idk::RemoteRxer statRx(atol(argv[2]));
     // idk::SharedTxer txer("IDKGameEngineIPC-EngineControl", sizeof(idk::EngineCtrlData));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
