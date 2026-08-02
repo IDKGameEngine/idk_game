@@ -31,8 +31,8 @@ int main(int argc, char **argv)
 
     idk::EngineCtrlData ctrl, ctrlBuf;
     idk::EngineStatData stat;
-    idk::PeriodicTimer ctrlTimer(4);
-    idk::PeriodicTimer statTimer(4);
+    idk::PeriodicTimer ctrlTimer(16);
+    idk::PeriodicTimer statTimer(16);
     // idk::RemoteTxer ctrlTx(argv[1], atol(argv[2]));
     // idk::RemoteRxer statRx(atol(argv[3]));
     idk::RemoteRxTxer port(argv[1], atol(argv[2]));
