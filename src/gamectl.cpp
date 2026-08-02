@@ -31,8 +31,8 @@ int main(int argc, char **argv)
 
     idk::EngineCtrlData ctrl, ctrlBuf;
     idk::EngineStatData stat;
-    idk::PeriodicTimer ctrlTimer(4);
-    idk::PeriodicTimer statTimer(4);
+    idk::PeriodicTimer ctrlTimer(8);
+    idk::PeriodicTimer statTimer(8);
     idk::RemoteRxTxer port(argv[1], atol(argv[2]));
 
     plat.addEventCallback(ImGuiSDL3EventFunc, nullptr);
@@ -107,8 +107,8 @@ int main(int argc, char **argv)
             port.sendMsg(&ctrl, sizeof(ctrl), "CTRL");
         }
 
-        if (statTimer.expired())
-        {
+        // if (statTimer.expired())
+        // {
             statTimer.reset();
             while (idk::MessageRecvInfo *msg = port.recvMsg())
             {
@@ -125,7 +125,7 @@ int main(int argc, char **argv)
                 }
                 idk_memcpy(&stat, msg->payload, h.payloadSize);
             }
-        }
+        // }
 
         ImGui::Render();
         idk::gl::Viewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
