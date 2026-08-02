@@ -109,14 +109,26 @@ int main(int argc, char **argv)
         if (ctrlTimer.expired())
         {
             ctrlTimer.reset();
-            port.sendMsg(ctrl);
+            port.sendMsg(&ctrl, sizeof(ctrl), "CTRL");
         }
 
         if (statTimer.expired())
         {
             statTimer.reset();
-            while (port.recvMsg(stat))
+            while (idk::MessageRecvInfo *msg = port.recvMsg())
             {
+                auto &h = msg->header;
+                if (msg->isType("STAT"))
+                {
+                    if (h.payloadSize == sizeof(idk::EngineStatData))
+                    {
+                        idk_memcpy(&stat, msg->payload, h.payloadSize);
+                    }
+                    else
+                    {
+                        VLOG_WARN("h.payloadSize != sizeof(idk::EngineStatData)");
+                    }
+                }
                 // VLOG_INFO("WOOP");
             }
         }
