@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 
     if (argc != 3)
     {
-        VLOG_FATAL("Usage: engine_ctrl hostname port");
+        VLOG_FATAL("Usage: gamectl hostname port");
     }
 
     idk::platform::Platform plat;
