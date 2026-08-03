@@ -17,7 +17,6 @@ target_link_libraries(
 )
 target_sources(
     ${PROJECT_NAME} PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/GameService.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
 )
 
