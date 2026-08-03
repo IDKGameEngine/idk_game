@@ -1,4 +1,9 @@
 #include "idk/engine/Engine.hpp"
+
+#include "libidk/platform/Platform.hpp"
+#include "libidk/platform/PlatformAudio.hpp"
+
+
 #include "idk/GameService.hpp"
 #include "idk/GfxService.hpp"
 
