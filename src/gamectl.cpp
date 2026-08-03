@@ -1,5 +1,5 @@
 #include "libidk/platform/Platform.hpp"
-#include "idk_engine/Engine.hpp"
+#include "idk/engine/Engine.hpp"
 
 #include "libidk/message/RemoteRxTx.hpp"
 #include "libidk/gpu/gl_bindings.hpp"

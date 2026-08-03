@@ -1,4 +1,4 @@
-#include "idk_engine/Engine.hpp"
+#include "idk/engine/Engine.hpp"
 #include "idk/GameService.hpp"
 #include "idk/GfxService.hpp"
 
