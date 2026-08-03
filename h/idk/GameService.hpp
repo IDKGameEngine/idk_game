@@ -2,7 +2,7 @@
 
 #include "libidk/Engine.hpp"
 #include "libidk/Service.hpp"
-#include "libidk/Timer.hpp"
+#include "libidk/dsa/PeriodicTimer.hpp"
 
 #include "idk/GfxService.hpp"
 #include "idk/gfx/Controller.hpp"
