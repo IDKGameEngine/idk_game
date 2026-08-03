@@ -13,10 +13,10 @@ int main(int argc, char **argv)
     std::srand(clock());
 
     idk::PlatformContext ctx;
-    ctx.giveFeature<idk::SDL3FileSystem>();
-    ctx.giveFeature<idk::SDL3Time>();
     ctx.giveFeature<idk::SDL3Events>();
-    ctx.giveFeature<idk::SDL3Video>();
+    ctx.giveFeature<idk::SDL3Time>();
+    ctx.giveFeature<idk::SDL3FileSystem>();
+    ctx.giveFeature<idk::SDL3Video>("GameWindow", 1280, 720);
 
     while (ctx.running())
     {
