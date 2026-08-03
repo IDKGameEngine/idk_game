@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
-    static idk::platform::Platform plat;
+    static idk::Platform plat;
     static idk::GfxService gfxSrv(plat);
     static idk::GameService gameSrv;
     static idk::Engine engine(plat, {&gfxSrv, &gameSrv});

@@ -9,7 +9,7 @@
 #include "imgui_impl_opengl3.h"
 #include <SDL3/SDL.h>
 
-static void ImGuiSDL3EventFunc(idk::platform::Platform &plat, void *event, void *arg)
+static void ImGuiSDL3EventFunc(idk::Platform &plat, void *event, void *arg)
 {
     (void)plat;
     (void)arg;
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
         VLOG_FATAL("Usage: gamectl hostname port");
     }
 
-    idk::platform::Platform plat;
+    idk::Platform plat;
     idk::platform::Window &win = plat.getWindow();
 
     idk::EngineCtrlData ctrl, ctrlBuf;
