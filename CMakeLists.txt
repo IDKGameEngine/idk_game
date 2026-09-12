@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 4.2)
 
-project(idk_game CXX)
+project(${IDK_APP_NAME} CXX)
 
 add_executable(
     ${PROJECT_NAME}
