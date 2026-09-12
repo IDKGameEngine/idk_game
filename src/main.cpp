@@ -5,7 +5,6 @@
 #include "libidk/platform/SDL3Time.hpp"
 #include "libidk/platform/SDL3Video.hpp"
 
-
 int main(int argc, char **argv)
 {
     (void)argc;
@@ -26,4 +25,3 @@ int main(int argc, char **argv)
 
     return 0;
 }
-
