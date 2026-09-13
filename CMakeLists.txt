@@ -26,10 +26,11 @@ if (DEFINED IDK_RUNTIME_STEAMRT4)
     target_link_libraries(
         ${PROJECT_NAME} PRIVATE Steamworks::Steamworks
     )
-    install(
-        FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/steam_appid.txt"
-        DESTINATION "${CMAKE_INSTALL_PREFIX}"
-    )
+    install(CODE " file(WRITE \"\${CMAKE_INSTALL_PREFIX}/steam_appid.txt\" \"480\") ")
+    # install(
+    #     FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/steam_appid.txt"
+    #     DESTINATION "${CMAKE_INSTALL_PREFIX}"
+    # )
 endif()
 
 install(
