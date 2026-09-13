@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.31)
 
-project(${IDK_APP_NAME} CXX)
-find_package(Steamworks CONFIG REQUIRED)
+project(${IDK_APP_NAME} VERSION 0.0.1 LANGUAGES CXX)
+include(GNUInstallDirs)
 
 add_executable(
     ${PROJECT_NAME}
@@ -14,7 +14,7 @@ target_include_directories(
     "${CMAKE_CURRENT_SOURCE_DIR}/h" "${IDK_ROOT_DIR}/include"
 )
 target_link_libraries(
-    ${PROJECT_NAME} PRIVATE idkengine idkgfx Steamworks::Steamworks
+    ${PROJECT_NAME} PRIVATE idkengine idkgfx
 )
 target_sources(
     ${PROJECT_NAME} PRIVATE
@@ -26,13 +26,9 @@ install(
     DESTINATION "${CMAKE_INSTALL_PREFIX}"
 )
 
-install(
-    TARGETS ${PROJECT_NAME}
-    DESTINATION "./"
-)
-
+install(TARGETS ${PROJECT_NAME} DESTINATION "./")
 file(GLOB SHARED_LIBRARY_FILES "${CMAKE_PREFIX_PATH}/lib/*.so*")
-install(FILES ${SHARED_LIBRARY_FILES} DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/")
+install(FILES ${SHARED_LIBRARY_FILES} DESTINATION "${CMAKE_INSTALL_LIBDIR}/")
 
 # add_custom_target(
 #     idk_game_data
