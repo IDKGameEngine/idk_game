@@ -5,7 +5,9 @@
 #include "libidk/platform/SDL3Time.hpp"
 #include "libidk/platform/SDL3Video.hpp"
 
-#include <steam/steam_api.h>
+#ifdef IDK_RUNTIME_STEAMRT4
+    #include <steam/steam_api.h>
+#endif
 
 
 int main(int argc, char **argv)
@@ -13,11 +15,13 @@ int main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    SteamErrMsg errMsg = { 0 };
-	if (SteamAPI_InitEx(&errMsg) != k_ESteamAPIInitResult_OK)
-    {
-        VLOG_FATAL("SteamAPI_InitEx() failure: {}", errMsg);
-    }
+    #ifdef IDK_RUNTIME_STEAMRT4
+        SteamErrMsg errMsg = { 0 };
+        if (SteamAPI_InitEx(&errMsg) != k_ESteamAPIInitResult_OK)
+        {
+            VLOG_FATAL("SteamAPI_InitEx() failure: {}", errMsg);
+        }
+    #endif
 
     std::srand(clock());
 
