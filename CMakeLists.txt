@@ -32,14 +32,7 @@ if (DEFINED IDK_RUNTIME_STEAMRT4)
     )
 endif()
 
-install(TARGETS ${PROJECT_NAME} DESTINATION "${CMAKE_INSTALL_PREFIX}")
-file(GLOB SHARED_LIBRARY_FILES "${CMAKE_PREFIX_PATH}/lib/*.so*")
-install(FILES ${SHARED_LIBRARY_FILES} DESTINATION "${CMAKE_INSTALL_LIBDIR}/")
-
-
-# add_custom_target(
-#     idk_game_data
-#     COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-#         ${CMAKE_CURRENT_SOURCE_DIR}/${IDK_ASSETS_DIRNAME} ${IDK_OUTPUT_DIR}/${IDK_ASSETS_DIRNAME}
-# )
-# add_dependencies(${PROJECT_NAME} idk_game_data)
+install(
+    TARGETS ${PROJECT_NAME}
+    DESTINATION "${CMAKE_INSTALL_PREFIX}"
+)
