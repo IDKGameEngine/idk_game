@@ -21,14 +21,21 @@ target_sources(
     "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
 )
 
-install(
-    FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/steam_appid.txt"
-    DESTINATION "${CMAKE_INSTALL_PREFIX}"
-)
+if (DEFINED IDK_RUNTIME_STEAMRT4)
+    find_package(Steamworks CONFIG REQUIRED)
+    target_link_libraries(
+        ${PROJECT_NAME} PRIVATE Steamworks::Steamworks
+    )
+    install(
+        FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/steam_appid.txt"
+        DESTINATION "${CMAKE_INSTALL_PREFIX}"
+    )
+endif()
 
-install(TARGETS ${PROJECT_NAME} DESTINATION "./")
+install(TARGETS ${PROJECT_NAME} DESTINATION "${CMAKE_INSTALL_PREFIX}")
 file(GLOB SHARED_LIBRARY_FILES "${CMAKE_PREFIX_PATH}/lib/*.so*")
 install(FILES ${SHARED_LIBRARY_FILES} DESTINATION "${CMAKE_INSTALL_LIBDIR}/")
+
 
 # add_custom_target(
 #     idk_game_data
