@@ -5,9 +5,17 @@
 #include "libidk/platform/SDL3Time.hpp"
 #include "libidk/platform/SDL3Video.hpp"
 
-#ifdef IDK_RUNTIME_STEAMRT4
-    #include <steam/steam_api.h>
-#endif
+#include <steam/steam_api.h>
+
+static void InitSteamLinuxRuntime()
+{
+    SteamErrMsg errMsg = { 0 };
+    if (SteamAPI_InitEx(&errMsg) != k_ESteamAPIInitResult_OK)
+    {
+        VLOG_FATAL("SteamAPI_InitEx() failure: {}", errMsg);
+    }
+}
+
 
 
 int main(int argc, char **argv)
@@ -15,13 +23,15 @@ int main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    #ifdef IDK_RUNTIME_STEAMRT4
-        SteamErrMsg errMsg = { 0 };
-        if (SteamAPI_InitEx(&errMsg) != k_ESteamAPIInitResult_OK)
-        {
-            VLOG_FATAL("SteamAPI_InitEx() failure: {}", errMsg);
-        }
-    #endif
+    if (std::getenv("SteamEnv"))
+    {
+        VLOG_INFO("Detected Steam runtime environment");
+        InitSteamLinuxRuntime();
+    }
+    else
+    {
+        VLOG_INFO("Detected native runtime environment");
+    }
 
     std::srand(clock());
 
