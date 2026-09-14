@@ -1,9 +1,9 @@
-#include "libidk/platform-sdl3/AudioBackend.hpp"
-#include "libidk/platform-sdl3/EventBackend.hpp"
-#include "libidk/platform-sdl3/FilesystemBackend.hpp"
-#include "libidk/platform-sdl3/InputBackend.hpp"
-#include "libidk/platform-sdl3/TimeBackend.hpp"
-#include "libidk/platform-sdl3/VideoBackend.hpp"
+#include "libidk/platform/AudioBackend.hpp"
+#include "libidk/platform/EventBackend.hpp"
+#include "libidk/platform/FilesystemBackend.hpp"
+#include "libidk/platform/InputBackend.hpp"
+#include "libidk/platform/TimeBackend.hpp"
+#include "libidk/platform/VideoBackend.hpp"
 
 #include <steam/steam_api.h>
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
-    idk::BackendContext ctx;
+    idk::IPlatformContext ctx;
     ctx.giveFeature<idk::EventBackend>();
     ctx.giveFeature<idk::TimeBackend>();
     ctx.giveFeature<idk::FilesystemBackend>();
