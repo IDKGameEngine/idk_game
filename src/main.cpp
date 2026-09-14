@@ -1,9 +1,9 @@
-#include "libidk/platform/PlatformContext.hpp"
-#include "libidk/platform/SDL3Events.hpp"
-#include "libidk/platform/SDL3FileSystem.hpp"
-#include "libidk/platform/SDL3Input.hpp"
-#include "libidk/platform/SDL3Time.hpp"
-#include "libidk/platform/SDL3Video.hpp"
+#include "idk/backend-sdl3/AudioBackend.hpp"
+#include "idk/backend-sdl3/EventBackend.hpp"
+#include "idk/backend-sdl3/FilesystemBackend.hpp"
+#include "idk/backend-sdl3/InputBackend.hpp"
+#include "idk/backend-sdl3/TimeBackend.hpp"
+#include "idk/backend-sdl3/VideoBackend.hpp"
 
 #include <steam/steam_api.h>
 
@@ -34,11 +34,11 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
-    idk::PlatformContext ctx;
-    ctx.giveFeature<idk::SDL3Events>();
-    ctx.giveFeature<idk::SDL3Time>();
-    ctx.giveFeature<idk::SDL3FileSystem>();
-    ctx.giveFeature<idk::SDL3Video>("GameWindow", 1280, 720);
+    idk::BackendContext ctx;
+    ctx.giveFeature<idk::EventBackend>();
+    ctx.giveFeature<idk::TimeBackend>();
+    ctx.giveFeature<idk::FilesystemBackend>();
+    ctx.giveFeature<idk::VideoBackend>("GameWindow", 1280, 720);
 
     while (ctx.running())
     {
