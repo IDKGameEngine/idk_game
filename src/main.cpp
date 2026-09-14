@@ -1,9 +1,9 @@
-#include "idk/backend-sdl3/AudioBackend.hpp"
-#include "idk/backend-sdl3/EventBackend.hpp"
-#include "idk/backend-sdl3/FilesystemBackend.hpp"
-#include "idk/backend-sdl3/InputBackend.hpp"
-#include "idk/backend-sdl3/TimeBackend.hpp"
-#include "idk/backend-sdl3/VideoBackend.hpp"
+#include "libidk/platform-sdl3/AudioBackend.hpp"
+#include "libidk/platform-sdl3/EventBackend.hpp"
+#include "libidk/platform-sdl3/FilesystemBackend.hpp"
+#include "libidk/platform-sdl3/InputBackend.hpp"
+#include "libidk/platform-sdl3/TimeBackend.hpp"
+#include "libidk/platform-sdl3/VideoBackend.hpp"
 
 #include <steam/steam_api.h>
 
