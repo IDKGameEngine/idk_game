@@ -13,9 +13,7 @@ target_include_directories(
     ${PROJECT_NAME} PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/include" "${IDK_ROOT_DIR}/include"
 )
-target_link_libraries(
-    ${PROJECT_NAME} PRIVATE idkengine idkgfx
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE idkengine idkgfx idk_platform_sdl3)
 target_sources(
     ${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"

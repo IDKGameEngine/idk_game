@@ -1,11 +1,10 @@
-#include "libidk/platform-sdl3/AudioBackend.hpp"
-#include "libidk/platform-sdl3/EventBackend.hpp"
-#include "libidk/platform-sdl3/FilesystemBackend.hpp"
-#include "libidk/platform-sdl3/InputBackend.hpp"
-#include "libidk/platform-sdl3/TimeBackend.hpp"
-#include "libidk/platform-sdl3/VideoBackend.hpp"
+#include "libidk/platform-sdl3/SdlPlatform.hpp"
+#include "libidk/log.hpp"
+#include "idk/gfx/VulkanRenderer.hpp"
 
 #include <steam/steam_api.h>
+
+#include <cstdlib>
 
 static void InitSteamLinuxRuntime()
 {
@@ -32,17 +31,17 @@ int main(int argc, char **argv)
         VLOG_INFO("Detected native runtime environment");
     }
 
-    std::srand(clock());
+    const idk::platform::AppConfig platformConfig {
+        .title = "GameWindow",
+        .initialWindowSize = { 1280, 720 },
+    };
+    auto platform = idk::sdl3::makePlatform(platformConfig);
+    idk::gfx::VulkanRenderer renderer(platform->mainWindow());
 
-    idk::BackendContext ctx;
-    ctx.giveFeature<idk::EventBackend>();
-    ctx.giveFeature<idk::TimeBackend>();
-    ctx.giveFeature<idk::FilesystemBackend>();
-    ctx.giveFeature<idk::VideoBackend>("GameWindow", 1280, 720);
-
-    while (ctx.running())
+    while (!platform->quitRequested())
     {
-        ctx.update();
+        platform->pollEvents();
+        renderer.render();
     }
 
     return 0;
