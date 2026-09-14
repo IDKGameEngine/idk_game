@@ -1,9 +1,22 @@
-#include "libidk/platform/AudioBackend.hpp"
-#include "libidk/platform/EventBackend.hpp"
-#include "libidk/platform/FilesystemBackend.hpp"
-#include "libidk/platform/InputBackend.hpp"
-#include "libidk/platform/TimeBackend.hpp"
-#include "libidk/platform/VideoBackend.hpp"
+#include "libidk/log.hpp"
+
+// #include "Sdl3ContextFactory.hpp"
+// int main()
+// {
+//     auto platform = idk::platform::createSdlPlatform({
+//         .windowTitle = "GameWindow",
+//         .windowWidth = 1280,
+//         .windowHeight = 720
+//     });
+
+//     while (platform->running())
+//     {
+//         platform->update();
+//     }
+
+//     return 0;
+// }
+
 
 #include <steam/steam_api.h>
 
