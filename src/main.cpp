@@ -1,5 +1,7 @@
 #include "libidk/log.hpp"
 
+#include "libidk/platform/PlatformContextSdl3.hpp"
+
 // #include "Sdl3ContextFactory.hpp"
 // int main()
 // {
@@ -47,11 +49,8 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
-    idk::IPlatformContext ctx;
-    ctx.giveFeature<idk::EventBackend>();
-    ctx.giveFeature<idk::TimeBackend>();
-    ctx.giveFeature<idk::FilesystemBackend>();
-    ctx.giveFeature<idk::VideoBackend>("GameWindow", 1280, 720);
+    idk::PlatformConfig cfg{"GameWindow", 1280, 720};
+    idk::PlatformContextSdl3 ctx(cfg);
 
     while (ctx.running())
     {
