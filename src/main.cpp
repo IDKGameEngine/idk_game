@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 
     std::srand(clock());
 
+
     idk::PlatformConfig cfg{"GameWindow", 1280, 720};
     idk::PlatformContextSdl3 ctx(cfg);
 
@@ -39,9 +40,6 @@ int main(int argc, char **argv)
         auto *snd = audio->createSound("audio/hurt3.wav");
         audio->startSound(snd);
     }
-
-    // const char *imgpath = IDK_CONTENT_BASEPATH "img/hello.png";
-    // VLOG_ERROR("imgpath: {}", imgpath);
 
     while (ctx.running())
     {
