@@ -1,25 +1,5 @@
 #include "libidk/log.hpp"
-
-#include "libidk/platform/PlatformContextSdl3.hpp"
-
-// #include "Sdl3ContextFactory.hpp"
-// int main()
-// {
-//     auto platform = idk::platform::createSdlPlatform({
-//         .windowTitle = "GameWindow",
-//         .windowWidth = 1280,
-//         .windowHeight = 720
-//     });
-
-//     while (platform->running())
-//     {
-//         platform->update();
-//     }
-
-//     return 0;
-// }
-
-
+#include "libidk/platform-sdl3/PlatformContext.hpp"
 #include <steam/steam_api.h>
 
 static void InitSteamLinuxRuntime()
@@ -30,7 +10,6 @@ static void InitSteamLinuxRuntime()
         VLOG_FATAL("SteamAPI_InitEx() failure: {}", errMsg);
     }
 }
-
 
 int main(int argc, char **argv)
 {
