@@ -1,5 +1,6 @@
 #include "libidk/log.hpp"
 #include "libidk/platform-sdl3/PlatformContext.hpp"
+#include "libidk/platform/IAudioBackend.hpp"
 #include <steam/steam_api.h>
 
 static void InitSteamLinuxRuntime()
@@ -30,6 +31,13 @@ int main(int argc, char **argv)
 
     idk::PlatformConfig cfg{"GameWindow", 1280, 720};
     idk::PlatformContextSdl3 ctx(cfg);
+
+    // auto *audio = ctx.getFeature<idk::IAudioBackend>();
+    // IDK_ASSERT(audio != nullptr, "RUH ROH");
+    // if (audio)
+    // {
+    //     audio->createSound("gfx/font/atlas.png");
+    // }
 
     while (ctx.running())
     {
