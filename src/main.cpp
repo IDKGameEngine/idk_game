@@ -3,6 +3,8 @@
 #include "libidk/platform/IAudioBackend.hpp"
 #include "idk/engine/Engine.hpp"
 
+#include "idk/gfx/GfxService.hpp"
+
 
 int main(int argc, char **argv)
 {
@@ -15,16 +17,17 @@ int main(int argc, char **argv)
     idk::PlatformContextSdl3 ctx(cfg);
 
     idk::Engine engine(&ctx);
-
-    auto *audio = ctx.getFeature<idk::IAudioBackend>();
-    IDK_ASSERT(audio != nullptr, "RUH ROH");
-    if (audio)
-    {
-        auto *snd = audio->createSound("audio/hurt3.wav");
-        audio->startSound(snd);
-    }
-
+    engine.addComponent<idk::gfx::GfxService>();
     engine.start();
+
+    // auto *audio = ctx.getFeature<idk::IAudioBackend>();
+    // IDK_ASSERT(audio != nullptr, "RUH ROH");
+    // if (audio)
+    // {
+    //     auto *snd = audio->createSound("audio/hurt3.wav");
+    //     audio->startSound(snd);
+    // }
+
 
     return 0;
 }
