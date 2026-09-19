@@ -32,12 +32,16 @@ int main(int argc, char **argv)
     idk::PlatformConfig cfg{"GameWindow", 1280, 720};
     idk::PlatformContextSdl3 ctx(cfg);
 
-    // auto *audio = ctx.getFeature<idk::IAudioBackend>();
-    // IDK_ASSERT(audio != nullptr, "RUH ROH");
-    // if (audio)
-    // {
-    //     audio->createSound("gfx/font/atlas.png");
-    // }
+    auto *audio = ctx.getFeature<idk::IAudioBackend>();
+    IDK_ASSERT(audio != nullptr, "RUH ROH");
+    if (audio)
+    {
+        auto *snd = audio->createSound("audio/hurt3.wav");
+        audio->startSound(snd);
+    }
+
+    // const char *imgpath = IDK_CONTENT_BASEPATH "img/hello.png";
+    // VLOG_ERROR("imgpath: {}", imgpath);
 
     while (ctx.running())
     {
