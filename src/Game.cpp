@@ -20,7 +20,7 @@ mygame::Game::Game()
 
 void mygame::Game::onInit(idk::Engine &E)
 {
-    auto *ctx = E.getPlatformContext();
+    auto *ctx = E.getPlatform();
 
     if (auto *audio = ctx->getFeature<idk::AudioManager>())
     {
