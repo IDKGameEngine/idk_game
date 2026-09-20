@@ -22,10 +22,9 @@ target_sources(
     "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
 )
 
-find_package(Steamworks CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Steamworks::Steamworks)
-install(CODE "file(WRITE \"\${CMAKE_INSTALL_PREFIX}/steam_appid.txt\" \"480\")")
-
+install(
+    CODE "file(WRITE \"\${CMAKE_INSTALL_PREFIX}/steam_appid.txt\" \"480\")"
+)
 install(
     TARGETS ${PROJECT_NAME}
     DESTINATION "${CMAKE_INSTALL_PREFIX}"

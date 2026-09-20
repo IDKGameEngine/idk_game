@@ -1,19 +1,19 @@
 #pragma once
 
-#include "idk/engine/Engine.hpp"
-#include "libidk/dsa/PeriodicTimer.hpp"
+#include "libidk/Service.hpp"
+// #include "libidk/dsa/PeriodicTimer.hpp"
 
 
 namespace idk
 {
-    class GameService: public idk::EngineService
+    class GameService: public idk::Service
     {
     private:
 
     public:
-        GameService(EngineContext&);
-        virtual void init(idk::Engine&) final;
-        virtual void update(idk::Engine&) final;
+        GameService();
+        virtual void init(idk::ServiceManager*) final;
+        virtual void update(idk::ServiceManager*) final;
 
     };
 }

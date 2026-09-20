@@ -1,10 +1,11 @@
 #include "GameService.hpp"
-#include "libidk/platform-sdl3/PlatformContext.hpp"
-#include "libidk/platform/IAudioBackend.hpp"
+#include "idk/engine/Engine.hpp"
+
+#include "idk/platform/PlatformContext.hpp"
+#include "idk/platform/AudioManager.hpp"
 
 
-idk::GameService::GameService(EngineContext &ctx)
-:   EngineService(ctx)
+idk::GameService::GameService()
 {
     // mCtl.moveSpeed = 400.0f;
     // mCtl.lookSpeed = 10.0f;
@@ -17,11 +18,12 @@ idk::GameService::GameService(EngineContext &ctx)
 }
 
 
-void idk::GameService::init(idk::Engine &E)
+void idk::GameService::init(idk::ServiceManager *sm)
 {
-    auto *ctx = E.getPlatformContext();
+    auto *E = dynamic_cast<idk::Engine*>(sm);
+    auto *ctx = E->getPlatformContext();
 
-    if (auto *audio = ctx->getFeature<idk::IAudioBackend>())
+    if (auto *audio = ctx->getFeature<idk::AudioManager>())
     {
         auto *snd = audio->createSound("audio/hurt3.wav");
         audio->startSound(snd);
@@ -33,9 +35,9 @@ void idk::GameService::init(idk::Engine &E)
 }
 
 
-void idk::GameService::update(idk::Engine &E)
+void idk::GameService::update(idk::ServiceManager *sm)
 {
-    (void)E;
+    (void)sm;
     // auto *gfx = E->getService<idk::GfxService>();
     // if (!gfx) { return; }
     
