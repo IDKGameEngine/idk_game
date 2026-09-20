@@ -1,5 +1,4 @@
 #include "idk/engine/Engine.hpp"
-#include "idk/editor/Editor.hpp"
 #include "Game.hpp"
 
 

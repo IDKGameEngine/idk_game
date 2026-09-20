@@ -20,9 +20,9 @@ mygame::Game::Game()
 
 void mygame::Game::onInit(idk::Engine &E)
 {
-    auto *ctx = E.getPlatform();
+    auto *ctx = E.getService<idk::PlatformContext>();
 
-    if (auto *audio = ctx->getFeature<idk::AudioManager>())
+    if (auto *audio = ctx->getService<idk::AudioManager>())
     {
         auto *snd = audio->createSound("audio/hurt3.wav");
         audio->startSound(snd);
