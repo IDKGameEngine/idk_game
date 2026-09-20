@@ -6,13 +6,14 @@
 
 namespace idk
 {
-    class GameService: public idk::EngineComponent
+    class GameService: public idk::EngineService
     {
     private:
 
     public:
         GameService(EngineContext&);
-        virtual void update() final;
+        virtual void init(idk::Engine&) final;
+        virtual void update(idk::Engine&) final;
 
     };
 }

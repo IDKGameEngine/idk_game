@@ -1,9 +1,9 @@
 #include "libidk/log.hpp"
 #include "libidk/platform-sdl3/PlatformContext.hpp"
-#include "libidk/platform/IAudioBackend.hpp"
 #include "idk/engine/Engine.hpp"
 
 #include "idk/gfx/GfxService.hpp"
+#include "GameService.hpp"
 
 
 int main(int argc, char **argv)
@@ -18,16 +18,8 @@ int main(int argc, char **argv)
 
     idk::Engine engine(&ctx);
     engine.addComponent<idk::gfx::GfxService>();
+    engine.addComponent<idk::GameService>();
     engine.start();
-
-    // auto *audio = ctx.getFeature<idk::IAudioBackend>();
-    // IDK_ASSERT(audio != nullptr, "RUH ROH");
-    // if (audio)
-    // {
-    //     auto *snd = audio->createSound("audio/hurt3.wav");
-    //     audio->startSound(snd);
-    // }
-
 
     return 0;
 }
