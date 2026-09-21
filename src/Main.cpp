@@ -1,5 +1,5 @@
 #include "idk/engine/Engine.hpp"
-#include "Game.hpp"
+#include "GameImpl.hpp"
 
 
 int main(int argc, char **argv)
@@ -7,7 +7,7 @@ int main(int argc, char **argv)
     (void)argc; (void)argv;
 
     idk::Engine engine;
-    mygame::Game game;
+    mygame::GameImpl game;
     engine.run(&game);
 
     return 0;

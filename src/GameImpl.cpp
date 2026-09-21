@@ -1,11 +1,9 @@
-#include "Game.hpp"
+#include "GameImpl.hpp"
 #include "idk/engine/Engine.hpp"
-
-#include "idk/platform/PlatformContext.hpp"
 #include "idk/platform/AudioManager.hpp"
 
 
-mygame::Game::Game()
+mygame::GameImpl::GameImpl()
 {
     // mCtl.moveSpeed = 400.0f;
     // mCtl.lookSpeed = 10.0f;
@@ -18,25 +16,17 @@ mygame::Game::Game()
 }
 
 
-void mygame::Game::onInit(idk::Engine &E)
+void mygame::GameImpl::onInit(idk::EngineAPI &api)
 {
-    auto *ctx = E.getService<idk::PlatformContext>();
-
-    if (auto *audio = ctx->getService<idk::AudioManager>())
-    {
-        auto *snd = audio->createSound("audio/hurt3.wav");
-        audio->startSound(snd);
-    }
-    else
-    {
-        VLOG_FATAL("[GameService::init] Cannot obtain audio backend");
-    }
+    auto *audio = api.mAudio;
+    auto *snd = audio->createSound("audio/hurt3.wav");
+    audio->startSound(snd);
 }
 
 
-void mygame::Game::onUpdate(idk::Engine &E)
+void mygame::GameImpl::onUpdate(idk::EngineAPI &api)
 {
-    (void)E;
+    (void)api;
 
     // auto *gfx = E->getService<idk::GfxService>();
     // if (!gfx) { return; }
@@ -74,8 +64,14 @@ void mygame::Game::onUpdate(idk::Engine &E)
 }
 
 
-void mygame::Game::onShutdown(idk::Engine &E)
+void mygame::GameImpl::onShutdown(idk::EngineAPI &api)
 {
-    (void)E;
+    (void)api;
+}
+
+
+void mygame::GameImpl::onEvent(idk::EngineAPI &api, const void*)
+{
+    (void)api;
 }
 
