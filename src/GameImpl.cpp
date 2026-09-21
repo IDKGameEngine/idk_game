@@ -3,7 +3,7 @@
 #include "idk/platform/AudioManager.hpp"
 
 
-static idk::ResourceHandle snd;
+static idk::AudioManager::SoundHandle snd;
 
 void mygame::GameImpl::onInit(idk::EngineAPI &api)
 {
@@ -21,12 +21,13 @@ void mygame::GameImpl::onShutdown(idk::EngineAPI &api)
 
 void mygame::GameImpl::onPreFrame(idk::EngineAPI &api)
 {
-    auto *audio = api.mAudio;
+    (void)api;
+    // auto *audio = api.mAudio;
 
-    if (audio->isSoundFinished(snd))
-    {
-        VLOG_INFO("[GameImpl::onUpdate] Sound finished!");
-    }
+    // if (audio->isSoundFinished(snd))
+    // {
+    //     VLOG_INFO("[GameImpl::onUpdate] Sound finished!");
+    // }
 
     // auto *gfx = E->getService<idk::GfxService>();
     // if (!gfx) { return; }
