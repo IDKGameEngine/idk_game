@@ -19,7 +19,7 @@ void mygame::GameImpl::onShutdown(idk::EngineAPI &api)
 }
 
 
-void mygame::GameImpl::onUpdate(idk::EngineAPI &api)
+void mygame::GameImpl::onPreFrame(idk::EngineAPI &api)
 {
     auto *audio = api.mAudio;
 
@@ -61,6 +61,12 @@ void mygame::GameImpl::onUpdate(idk::EngineAPI &api)
     //     // ren.setLerpAlpha(0);
     //     ren.swapCamera();
     // }
+}
+
+
+void mygame::GameImpl::onPostFrame(idk::EngineAPI&)
+{
+
 }
 
 
