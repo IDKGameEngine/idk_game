@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 
     idk::Engine engine;
     mygame::GameImpl game;
-    engine.run(&game);
+    engine.startApplication(&game);
 
     return 0;
 }

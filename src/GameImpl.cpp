@@ -19,7 +19,7 @@ void mygame::GameImpl::onShutdown(idk::EngineAPI &api)
 }
 
 
-void mygame::GameImpl::onPreFrame(idk::EngineAPI &api)
+void mygame::GameImpl::onUpdate(idk::EngineAPI &api)
 {
     (void)api;
     // auto *audio = api.mAudio;
@@ -65,14 +65,8 @@ void mygame::GameImpl::onPreFrame(idk::EngineAPI &api)
 }
 
 
-void mygame::GameImpl::onPostFrame(idk::EngineAPI&)
+void mygame::GameImpl::onFixedUpdate(idk::EngineAPI&)
 {
 
-}
-
-
-void mygame::GameImpl::onEvent(idk::EngineAPI &api, const void*)
-{
-    (void)api;
 }
 
