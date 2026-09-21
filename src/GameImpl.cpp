@@ -3,7 +3,7 @@
 #include "idk/platform/AudioManager.hpp"
 
 
-static idk::ObjectHandle snd;
+static idk::ResourceHandle snd;
 
 void mygame::GameImpl::onInit(idk::EngineAPI &api)
 {
