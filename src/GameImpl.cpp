@@ -3,30 +3,30 @@
 #include "idk/platform/AudioManager.hpp"
 
 
-mygame::GameImpl::GameImpl()
-{
-    // mCtl.moveSpeed = 400.0f;
-    // mCtl.lookSpeed = 10.0f;
-
-    // mEntityManager.createEntity();
-    // mEntityManager.createEntity();
-    // mEntityManager.createEntity();
-    // mEntityManager.createEntity();
-    // mEntityManager.createEntity();
-}
-
+static idk::ObjectHandle snd;
 
 void mygame::GameImpl::onInit(idk::EngineAPI &api)
 {
     auto *audio = api.mAudio;
-    auto *snd = audio->createSound("audio/hurt3.wav");
+    snd = audio->createSound("audio/hurt3.wav");
     audio->startSound(snd);
+}
+
+
+void mygame::GameImpl::onShutdown(idk::EngineAPI &api)
+{
+    (void)api;
 }
 
 
 void mygame::GameImpl::onUpdate(idk::EngineAPI &api)
 {
-    (void)api;
+    auto *audio = api.mAudio;
+
+    if (audio->isSoundFinished(snd))
+    {
+        VLOG_INFO("[GameImpl::onUpdate] Sound finished!");
+    }
 
     // auto *gfx = E->getService<idk::GfxService>();
     // if (!gfx) { return; }
@@ -61,12 +61,6 @@ void mygame::GameImpl::onUpdate(idk::EngineAPI &api)
     //     // ren.setLerpAlpha(0);
     //     ren.swapCamera();
     // }
-}
-
-
-void mygame::GameImpl::onShutdown(idk::EngineAPI &api)
-{
-    (void)api;
 }
 
 

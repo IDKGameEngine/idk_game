@@ -10,11 +10,9 @@ namespace mygame
     private:
 
     public:
-        GameImpl();
-
         virtual void onInit(idk::EngineAPI&) final;
-        virtual void onUpdate(idk::EngineAPI&) final;
         virtual void onShutdown(idk::EngineAPI&) final;
+        virtual void onUpdate(idk::EngineAPI&) final;
         virtual void onEvent(idk::EngineAPI&, const void*) final;
 
     };
