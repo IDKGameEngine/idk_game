@@ -6,6 +6,7 @@ include(GNUInstallDirs)
 add_executable(
     ${PROJECT_NAME}
 )
+target_compile_options(${PROJECT_NAME} PRIVATE -fno-exceptions)
 target_compile_features(
     ${PROJECT_NAME} PUBLIC cxx_std_23
 )
