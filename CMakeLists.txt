@@ -15,7 +15,7 @@ target_include_directories(
     "${CMAKE_CURRENT_SOURCE_DIR}/include" "${IDK_ROOT_DIR}/include"
 )
 target_link_libraries(
-    ${PROJECT_NAME} PRIVATE idkengine
+    ${PROJECT_NAME} PRIVATE idkengine idklevel_playtest
 )
 target_sources(
     ${PROJECT_NAME} PRIVATE
