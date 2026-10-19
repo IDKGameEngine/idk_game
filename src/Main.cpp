@@ -7,20 +7,23 @@
 #include <cstring>
 #include <limits.h>
 
-
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     const char* levelPath = nullptr;
+    const char* levelRoot = nullptr;
     uint32_t frames = 0;
     for (int i = 1; i < argc; ++i)
     {
         if (!std::strcmp(argv[i], "--help"))
         {
-            std::puts("Usage: game [--level path.idklvl] [--frames N]\nWithout --level, runs the model demo.");
+            std::puts("Usage: game [--level path.idklvl] [--frames N] [--level-root directory]\nWithout --level, runs "
+                      "the model demo.");
             return 0;
         }
         if (!std::strcmp(argv[i], "--level") && i + 1 < argc && !levelPath)
             levelPath = argv[++i];
+        else if (!std::strcmp(argv[i], "--level-root") && i + 1 < argc && !levelRoot)
+            levelRoot = argv[++i];
         else if (!std::strcmp(argv[i], "--frames") && i + 1 < argc && !frames)
         {
             const char* value = argv[++i];
@@ -37,13 +40,36 @@ int main(int argc, char **argv)
             return 2;
         }
     }
-    if (frames && !levelPath) { std::fputs("--frames requires --level.\n", stderr); return 2; }
+    if (levelRoot && !levelPath)
+    {
+        std::fputs("--level-root requires --level.\n", stderr);
+        return 2;
+    }
+    char absoluteRoot[PATH_MAX];
+    if (levelRoot)
+    {
+        if (!realpath(levelRoot, absoluteRoot))
+        {
+            std::perror("Level root");
+            return 1;
+        }
+        levelRoot = absoluteRoot;
+    }
+    if (frames && !levelPath)
+    {
+        std::fputs("--frames requires --level.\n", stderr);
+        return 2;
+    }
     char absolute[PATH_MAX];
     if (levelPath)
     {
-        if (!realpath(levelPath, absolute)) { std::perror("Runtime level path"); return 1; }
+        if (!realpath(levelPath, absolute))
+        {
+            std::perror("Runtime level path");
+            return 1;
+        }
         idk::Engine engine;
-        idk::level::Playtest playtest(absolute, frames);
+        idk::level::Playtest playtest(absolute, frames, levelRoot);
         engine.startApplication(&playtest);
         return playtest.failed() ? 1 : 0;
     }
