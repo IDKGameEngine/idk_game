@@ -7,10 +7,10 @@
 #include <cstring>
 #include <limits.h>
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    const char* levelPath = nullptr;
-    const char* levelRoot = nullptr;
+    const char *levelPath = nullptr;
+    const char *levelRoot = nullptr;
     uint32_t frames = 0;
     for (int i = 1; i < argc; ++i)
     {
@@ -26,7 +26,7 @@ int main(int argc, char** argv)
             levelRoot = argv[++i];
         else if (!std::strcmp(argv[i], "--frames") && i + 1 < argc && !frames)
         {
-            const char* value = argv[++i];
+            const char *value = argv[++i];
             auto result = std::from_chars(value, value + std::strlen(value), frames);
             if (result.ec != std::errc{} || *result.ptr || !frames)
             {
